@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About ThumbPreview — Free YouTube Thumbnail Preview Tool</title>
+  <meta name="description" content="Learn about ThumbPreview, the free online tool that lets YouTubers preview thumbnails across real YouTube layouts. 100% client-side, privacy-first, zero cost.">
+  <meta name="keywords" content="about thumbpreview, youtube thumbnail tool, thumbnail previewer, free thumbnail tester, content creator tools">
+  <link rel="canonical" href="https://public-nine-swart.vercel.app/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About ThumbPreview — Free YouTube Thumbnail Preview Tool">
+  <meta property="og:description" content="Learn about ThumbPreview and how it helps YouTubers create better thumbnails.">
+  <meta property="og:url" content="https://public-nine-swart.vercel.app/about.html">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;500;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="ThumbPreview Home">
+        <span class="logo-icon">&#9654;</span>
+        <span class="logo-text">Thumb<strong>Preview</strong></span>
+      </a>
+      <nav>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <span class="theme-icon theme-icon--light">&#9788;</span>
+          <span class="theme-icon theme-icon--dark">&#9789;</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <h1>About ThumbPreview</h1>
+    <p class="lead">ThumbPreview is a free, browser-based tool that helps YouTube creators visualize exactly how their thumbnails will appear across every YouTube layout before they hit publish.</p>
+
+    <h2>The Problem We Solve</h2>
+    <p>Every YouTube creator knows the frustration: you spend hours designing the perfect thumbnail in Photoshop or Canva, upload it to YouTube, and then discover it looks completely different on mobile than it did on your desktop monitor. Text gets cut off, colors look washed out against the dark mode interface, or the image simply does not stand out in a crowded feed of competing videos.</p>
+    <p>YouTube displays thumbnails differently depending on the context. A thumbnail on the desktop home feed appears as a wide card with a channel avatar and title beneath it. On mobile, the same thumbnail stretches edge-to-edge with metadata overlaid differently. In search results, the thumbnail is smaller and placed beside text. In the suggested videos sidebar, it shrinks even further. And then there is the difference between light mode and dark mode backgrounds, which can dramatically change how your colors and contrast are perceived.</p>
+    <p>Before ThumbPreview, creators had to upload their thumbnail to YouTube, check it on multiple devices, and then re-upload if something looked off. This process wastes time, and every re-upload resets the video recommendation algorithm window. ThumbPreview eliminates this guesswork entirely.</p>
+
+    <h2>How It Works</h2>
+    <p>ThumbPreview operates entirely inside your web browser. When you upload a thumbnail image, it never leaves your device. The tool uses the browser's native URL.createObjectURL API to generate a temporary local reference to your image, which is then placed into pixel-perfect recreations of seven different YouTube layout mockups.</p>
+    <p>These mockups are built using the exact dimensions, spacing, typography, and color values that YouTube uses in its actual interface. We use Roboto, the same font family YouTube uses, and replicate the precise padding, border radius, and metadata layout for each view type. The result is a preview that is virtually indistinguishable from the real YouTube interface.</p>
+    <p>You can customize the video title and channel name fields, and your changes update across all seven mockups in real time. This allows you to test not just how the thumbnail looks, but how it works in combination with your title text at various truncation points.</p>
+
+    <h2>Seven Preview Layouts</h2>
+    <p>ThumbPreview renders your thumbnail in the following YouTube contexts:</p>
+    <ul>
+      <li><strong>Desktop Home Feed (Light Mode)</strong> — The most common view for desktop users browsing YouTube's front page.</li>
+      <li><strong>Desktop Home Feed (Dark Mode)</strong> — The same layout against YouTube's dark background, which more than 80% of users now prefer.</li>
+      <li><strong>Mobile Home Feed (Light Mode)</strong> — Full-width thumbnail as it appears on phones, where more than 70% of YouTube viewing happens.</li>
+      <li><strong>Mobile Home Feed (Dark Mode)</strong> — Mobile view with the dark interface that is the default on most phones.</li>
+      <li><strong>Desktop Search Results</strong> — The horizontal layout used when viewers search for content, where your thumbnail competes directly with others.</li>
+      <li><strong>Sidebar Suggested Videos</strong> — The compact thumbnail that appears beside the video player, a critical placement for driving views from related content.</li>
+      <li><strong>Shorts-style Vertical Card</strong> — A vertical card format for creators testing content in the Shorts ecosystem.</li>
+    </ul>
+
+    <h2>Privacy First</h2>
+    <p>We built ThumbPreview with a fundamental principle: your creative work is yours. Unlike other thumbnail preview tools that require you to upload images to their servers, ThumbPreview processes everything locally in your browser. No image data is ever transmitted over the internet. There is no server-side storage, no cloud processing, and no way for us or anyone else to access your thumbnails. When you close the browser tab, the temporary image reference is automatically destroyed.</p>
+    <p>This approach is not just better for your privacy. It is also faster, because there is no upload waiting time, and it works offline once the page has loaded.</p>
+
+    <h2>Why It Is Free</h2>
+    <p>ThumbPreview costs nothing for users because it costs almost nothing for us to operate. The entire application is a static website served from a free-tier hosting provider. There is no server infrastructure to maintain, no database to manage, and no bandwidth costs for image processing. The site is supported by non-intrusive display advertisements that do not interfere with the core tool functionality.</p>
+    <p>We believe that essential creator tools should be accessible to everyone, whether you are a first-time YouTuber with zero subscribers or a professional studio producing content at scale. Quality thumbnail previewing should not be locked behind a subscription paywall.</p>
+
+    <h2>Built for Creators, by Creators</h2>
+    <p>ThumbPreview was built out of genuine necessity. We wanted a simple, fast, private way to test thumbnails across YouTube layouts without the overhead of uploading to YouTube or installing desktop software. When we could not find a tool that met all of these criteria, we built one.</p>
+    <p>The tool is continuously improved based on how YouTube evolves its interface. As YouTube updates its layout, spacing, or design system, we update our mockups to match. Our goal is to always provide the most accurate representation of how your thumbnail will actually appear to viewers.</p>
+
+    <h2>Technical Details</h2>
+    <p>ThumbPreview is built with vanilla HTML, CSS, and JavaScript. There are no heavy frameworks, no tracking scripts beyond basic anonymous visitor counting, and no third-party image processing services. The entire application loads in under two seconds on a standard broadband connection and works on any modern web browser including Chrome, Firefox, Safari, and Edge.</p>
+    <p>The tool is fully responsive and works on mobile devices, tablets, and desktops. You can upload thumbnails using drag-and-drop, the file picker, or by pasting an image directly from your clipboard with Ctrl+V.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-info">
+        <p class="footer-brand">ThumbPreview</p>
+        <p class="footer-tagline">Free YouTube Thumbnail Previewer. 100% client-side. Your images never leave your browser.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="/">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/how-to-use.html">How to Use</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 ThumbPreview. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var t=document.getElementById('themeToggle');
+      var s=localStorage.getItem('tp-theme');
+      if(s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');
+      t.addEventListener('click',function(){
+        var d=document.documentElement.getAttribute('data-theme')==='dark';
+        if(d){document.documentElement.removeAttribute('data-theme');localStorage.setItem('tp-theme','light');}
+        else{document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('tp-theme','dark');}
+      });
+    })();
+  </script>
+</body>
+</html>
