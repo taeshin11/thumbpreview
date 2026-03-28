@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx vercel:*)",
+      "Bash(curl -s \"https://www.google.com/ping?sitemap=https://public-nine-swart.vercel.app/sitemap.xml\")",
+      "Bash(gcloud --version)",
+      "Bash(gcloud auth:*)",
+      "Bash(where gcloud:*)",
+      "Bash(cmd.exe /c \"where gcloud\")",
+      "Read(//c/Program Files/Google/**)",
+      "Read(//c/Users/gangd/AppData/Local/Google/Cloud SDK//**)",
+      "Read(//c//**)",
+      "Bash(\"/c/Program Files/Google/Cloud SDK/google-cloud-sdk/bin/gcloud\" --version)",
+      "Bash(find '/c/Program Files/Google/Cloud SDK/google-cloud-sdk' -name gcloud* -maxdepth 2)",
+      "Bash(cmd.exe /c \"dir \"\"C:\\\\Program Files\\\\Google\\\\Cloud SDK\"\" /b\")",
+      "Bash(cmd.exe /c \"gcloud --version\")",
+      "Bash(cmd.exe /c \"where gcloud 2>nul & echo EXITCODE:%errorlevel%\")",
+      "Bash(cmd.exe /c \"gcloud auth list 2>&1\")",
+      "Bash(powershell.exe -Command \"gcloud auth list\")",
+      "Bash(\"/c/Users/gangd/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin/gcloud.cmd\" auth list)",
+      "Bash(GCLOUD=\"/c/Users/gangd/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin/gcloud.cmd\")",
+      "Bash(\"$GCLOUD\" auth:*)",
+      "Bash(\"/c/Users/gangd/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin/gcloud.cmd\" auth print-access-token)"
+    ]
+  }
+}
