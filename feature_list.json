@@ -1,0 +1,17 @@
+{
+  "features": [
+    { "id": "F1", "name": "Project Scaffolding & HTML Structure", "status": "done" },
+    { "id": "F2", "name": "CSS — Soft Color Palette, Responsive Layout, Dark Mode", "status": "done" },
+    { "id": "F3", "name": "Thumbnail Upload & Client-Side Processing", "status": "done" },
+    { "id": "F4", "name": "YouTube Mockup Rendering (All 7 Views)", "status": "done" },
+    { "id": "F5", "name": "Custom Title & Channel Name Live Editing", "status": "done" },
+    { "id": "F6", "name": "Visitor Counter (Today + Total)", "status": "done" },
+    { "id": "F7", "name": "SEO — Meta Tags, JSON-LD, Sitemap, Robots.txt", "status": "done" },
+    { "id": "F8", "name": "Google Sheets Webhook Integration (Apps Script)", "status": "done" },
+    { "id": "F9", "name": "Adsterra Ad Placement Slots", "status": "done" },
+    { "id": "F10", "name": "GitHub Repo Creation & Initial Push", "status": "pending" },
+    { "id": "F11", "name": "Deploy to Netlify/Vercel via CLI", "status": "pending" },
+    { "id": "F12", "name": "SETUP_GUIDE.md & README.md", "status": "done" },
+    { "id": "F13", "name": "Final QA — Cross-device Testing & Polish", "status": "pending" }
+  ]
+}

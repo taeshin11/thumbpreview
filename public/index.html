@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free YouTube Thumbnail Previewer — Test How Your Thumbnail Looks | ThumbPreview</title>
+  <meta name="description" content="Upload your YouTube thumbnail and instantly preview how it looks on desktop, mobile, dark mode, search results, and sidebar — 100% free, no signup required.">
+  <meta name="keywords" content="youtube thumbnail preview, thumbnail tester, youtube thumbnail checker, thumbnail previewer free">
+  <link rel="canonical" href="https://thumbpreview.netlify.app/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free YouTube Thumbnail Previewer — ThumbPreview">
+  <meta property="og:description" content="Upload your thumbnail and see exactly how it looks on real YouTube layouts. Desktop, mobile, dark mode — all free.">
+  <meta property="og:image" content="https://thumbpreview.netlify.app/assets/og-image.png">
+  <meta property="og:url" content="https://thumbpreview.netlify.app/">
+  <meta property="og:site_name" content="ThumbPreview">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free YouTube Thumbnail Previewer — ThumbPreview">
+  <meta name="twitter:description" content="Upload your thumbnail and see exactly how it looks on real YouTube layouts.">
+  <meta name="twitter:image" content="https://thumbpreview.netlify.app/assets/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ThumbPreview",
+    "alternateName": "YouTube Thumbnail Previewer",
+    "url": "https://thumbpreview.netlify.app/",
+    "description": "Free online tool to preview YouTube thumbnails on real layouts — desktop, mobile, dark mode, sidebar, search results.",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "browserRequirements": "Requires a modern web browser with JavaScript enabled"
+  }
+  </script>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="ThumbPreview Home">
+        <span class="logo-icon">&#9654;</span>
+        <span class="logo-text">Thumb<strong>Preview</strong></span>
+      </a>
+      <nav class="header-nav" aria-label="Main navigation">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <span class="theme-icon theme-icon--light">&#9788;</span>
+          <span class="theme-icon theme-icon--dark">&#9789;</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- AD: Header Banner -->
+  <!-- ADSTERRA AD UNIT: header-banner -->
+  <!-- Replace the script below with your Adsterra ad code -->
+  <div id="ad-header-banner" class="ad-container ad-banner">
+    <!-- PASTE YOUR ADSTERRA AD SCRIPT HERE -->
+  </div>
+
+  <main class="main-content">
+    <div class="container main-grid">
+
+      <!-- LEFT: Upload & Controls -->
+      <section class="upload-section" aria-label="Thumbnail upload">
+        <h1 class="section-title">Preview Your YouTube Thumbnail</h1>
+        <p class="section-subtitle">Upload a thumbnail and see how it looks on real YouTube layouts — all processed in your browser. No uploads to any server.</p>
+
+        <!-- Upload Area -->
+        <div class="upload-area" id="uploadArea" tabindex="0" role="button" aria-label="Click or drag to upload thumbnail">
+          <div class="upload-placeholder" id="uploadPlaceholder">
+            <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <p class="upload-text">Drag & drop your thumbnail here</p>
+            <p class="upload-hint">or click to browse (PNG, JPG, WebP)</p>
+          </div>
+          <img id="uploadPreview" class="upload-preview" alt="Uploaded thumbnail preview" style="display:none;">
+          <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.webp" hidden aria-label="Choose thumbnail file">
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+          <div class="control-group">
+            <label for="videoTitle" class="control-label">Video Title</label>
+            <input type="text" id="videoTitle" class="control-input" value="Your Amazing Video Title Here" maxlength="100" placeholder="Enter your video title">
+          </div>
+          <div class="control-group">
+            <label for="channelName" class="control-label">Channel Name</label>
+            <input type="text" id="channelName" class="control-input" value="Your Channel" maxlength="50" placeholder="Enter your channel name">
+          </div>
+          <button class="btn btn-primary" id="previewBtn" disabled>
+            <span>Generate Previews</span>
+          </button>
+          <button class="btn btn-secondary" id="resetBtn" style="display:none;">
+            <span>Reset</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- RIGHT: Desktop Sidebar Ad -->
+      <!-- ADSTERRA AD UNIT: sidebar-ad -->
+      <!-- Replace the script below with your Adsterra ad code -->
+      <aside id="ad-sidebar" class="ad-container ad-sidebar" aria-label="Advertisement">
+        <!-- PASTE YOUR ADSTERRA AD SCRIPT HERE -->
+      </aside>
+    </div>
+
+    <!-- PREVIEW MOCKUPS -->
+    <section class="mockups-section" id="mockupsSection" aria-label="YouTube preview mockups" style="display:none;">
+      <div class="container">
+        <h2 class="mockups-heading">Your Thumbnail on YouTube</h2>
+        <p class="mockups-subheading">See how viewers will see your thumbnail across different YouTube layouts.</p>
+
+        <div class="mockups-grid">
+
+          <!-- 1. Desktop Home Feed — Light -->
+          <article class="mockup-card">
+            <h3 class="mockup-label">Desktop Home Feed — Light</h3>
+            <div class="mockup-frame yt-desktop-home yt-light">
+              <div class="yt-thumb-wrapper">
+                <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in desktop home feed light mode">
+                <span class="yt-duration">12:34</span>
+              </div>
+              <div class="yt-meta">
+                <div class="yt-avatar"></div>
+                <div class="yt-info">
+                  <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
+                  <p class="yt-channel" data-mockup="channel">Your Channel</p>
+                  <p class="yt-stats">123K views &middot; 2 days ago</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. Desktop Home Feed — Dark -->
+          <article class="mockup-card">
+            <h3 class="mockup-label">Desktop Home Feed — Dark</h3>
+            <div class="mockup-frame yt-desktop-home yt-dark">
+              <div class="yt-thumb-wrapper">
+                <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in desktop home feed dark mode">
+                <span class="yt-duration">12:34</span>
+              </div>
+              <div class="yt-meta">
+                <div class="yt-avatar"></div>
+                <div class="yt-info">
+                  <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
+                  <p class="yt-channel" data-mockup="channel">Your Channel</p>
+                  <p class="yt-stats">123K views &middot; 2 days ago</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Mobile Home Feed — Light -->
+          <article class="mockup-card">
+            <h3 class="mockup-label">Mobile Home Feed — Light</h3>
+            <div class="mockup-frame yt-mobile-home yt-light">
+              <div class="yt-thumb-wrapper yt-mobile-thumb">
+                <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in mobile home feed light mode">
+                <span class="yt-duration">12:34</span>
+              </div>
+              <div class="yt-meta yt-mobile-meta">
+                <div class="yt-avatar yt-avatar-sm"></div>
+                <div class="yt-info">
+                  <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
+                  <p class="yt-channel-stats"><span data-mockup="channel">Your Channel</span> &middot; 123K views &middot; 2 days ago</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. Mobile Home Feed — Dark -->
+          <article class="mockup-card">
+            <h3 class="mockup-label">Mobile Home Feed — Dark</h3>
+            <div class="mockup-frame yt-mobile-home yt-dark">
+              <div class="yt-thumb-wrapper yt-mobile-thumb">
+                <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in mobile home feed dark mode">
+                <span class="yt-duration">12:34</span>
+              </div>
+              <div class="yt-meta yt-mobile-meta">
+                <div class="yt-avatar yt-avatar-sm"></div>
+                <div class="yt-info">
+                  <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
+                  <p class="yt-channel-stats"><span data-mockup="channel">Your Channel</span> &middot; 123K views &middot; 2 days ago</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5. Desktop Search Results -->
+          <article class="mockup-card mockup-card--wide">
+            <h3 class="mockup-label">Desktop Search Results</h3>
+            <div class="mockup-frame yt-search yt-light">
+              <div class="yt-search-layout">
+                <div class="yt-thumb-wrapper yt-search-thumb">
+                  <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in search results">
+                  <span class="yt-duration">12:34</span>
+                </div>
+                <div class="yt-search-info">
+                  <p class="yt-title yt-search-title" data-mockup="title">Your Amazing Video Title Here</p>
+                  <p class="yt-stats">123K views &middot; 2 days ago</p>
+                  <div class="yt-search-channel">
+                    <div class="yt-avatar yt-avatar-xs"></div>
+                    <span data-mockup="channel">Your Channel</span>
+                  </div>
+                  <p class="yt-search-desc">This is a placeholder description for the video. It shows how your video appears in YouTube search results alongside other content.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6. Desktop Sidebar / Suggested Videos -->
+          <article class="mockup-card">
+            <h3 class="mockup-label">Sidebar — Suggested Videos</h3>
+            <div class="mockup-frame yt-sidebar yt-light">
+              <div class="yt-sidebar-layout">
+                <div class="yt-thumb-wrapper yt-sidebar-thumb">
+                  <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in sidebar suggested videos">
+                  <span class="yt-duration yt-duration-sm">12:34</span>
+                </div>
+                <div class="yt-sidebar-info">
+                  <p class="yt-title yt-sidebar-title" data-mockup="title">Your Amazing Video Title Here</p>
+                  <p class="yt-channel yt-sidebar-channel" data-mockup="channel">Your Channel</p>
+                  <p class="yt-stats yt-sidebar-stats">123K views &middot; 2 days ago</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 7. Shorts-style Vertical Card -->
+          <article class="mockup-card">
+            <h3 class="mockup-label">Shorts-style Card</h3>
+            <div class="mockup-frame yt-shorts">
+              <div class="yt-shorts-card">
+                <img class="yt-thumb yt-shorts-thumb" data-mockup="thumb" alt="Thumbnail preview as Shorts card">
+                <div class="yt-shorts-overlay">
+                  <p class="yt-title yt-shorts-title" data-mockup="title">Your Amazing Video Title Here</p>
+                  <p class="yt-shorts-views">123K views</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- AD: Native Ad Below Mockups -->
+    <!-- ADSTERRA AD UNIT: native-ad -->
+    <!-- Replace the script below with your Adsterra ad code -->
+    <div id="ad-native" class="ad-container ad-native">
+      <!-- PASTE YOUR ADSTERRA AD SCRIPT HERE -->
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <!-- AD: Footer Banner -->
+    <!-- ADSTERRA AD UNIT: footer-banner -->
+    <!-- Replace the script below with your Adsterra ad code -->
+    <div id="ad-footer-banner" class="ad-container ad-banner">
+      <!-- PASTE YOUR ADSTERRA AD SCRIPT HERE -->
+    </div>
+
+    <div class="container footer-inner">
+      <div class="footer-info">
+        <p class="footer-brand">ThumbPreview</p>
+        <p class="footer-tagline">Free YouTube Thumbnail Previewer. 100% client-side. Your images never leave your browser.</p>
+      </div>
+      <div class="visitor-counter" id="visitorCounter" aria-label="Visitor statistics">
+        <div class="counter-item">
+          <span class="counter-icon">&#128065;</span>
+          <span class="counter-label">Today</span>
+          <span class="counter-value" id="todayCount">—</span>
+        </div>
+        <div class="counter-item">
+          <span class="counter-icon">&#127760;</span>
+          <span class="counter-label">Total</span>
+          <span class="counter-value" id="totalCount">—</span>
+        </div>
+      </div>
+      <p class="footer-copy">&copy; 2026 ThumbPreview. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/app.js" defer></script>
+  <script src="/js/analytics.js" defer></script>
+  <script src="/js/data-collect.js" defer></script>
+</body>
+</html>
