@@ -4,15 +4,18 @@
 [Session 1] — Starting project...
 
 [Session 2] — 2026-03-28
-- F1 DONE: Project scaffolding — created full directory structure, index.html with semantic HTML5
-- F2 DONE: CSS — soft warm cream/navy palette, CSS custom properties, responsive (mobile-first), dark mode via data-theme attribute
-- F3 DONE: Thumbnail upload — drag-and-drop + file picker, client-side only via URL.createObjectURL, file validation (PNG/JPG/WebP, 10MB max)
-- F4 DONE: All 7 YouTube mockup views — desktop home (light/dark), mobile home (light/dark), search results, sidebar, Shorts card
-- F5 DONE: Live title & channel name editing — input fields update all mockups in real-time
-- F6 DONE: Visitor counter in footer (today + total) with Apps Script endpoint
-- F7 DONE: Full SEO — meta tags, OG tags, Twitter Card, JSON-LD WebApplication schema, sitemap.xml, robots.txt, canonical URL
-- F8 DONE: Google Sheets webhook — Code.gs with doPost/doGet, data-collect.js with fetch POST
-- F9 DONE: 4 Adsterra ad slots — header banner, sidebar (desktop), native (below mockups), footer banner
-- F12 DONE: SETUP_GUIDE.md and README.md written
+- F1 DONE: Project scaffolding — full directory structure, index.html with semantic HTML5
+- F2 DONE: CSS — soft warm cream/navy palette, CSS custom properties, responsive (mobile-first), dark mode
+- F3 DONE: Thumbnail upload — drag-and-drop + file picker, client-side only via URL.createObjectURL
+- F4 DONE: All 7 YouTube mockup views — desktop home (light/dark), mobile (light/dark), search, sidebar, Shorts
+- F5 DONE: Live title & channel name editing across all mockups
+- F6 DONE: Visitor counter in footer (today + total)
+- F7 DONE: Full SEO — meta tags, OG, Twitter Card, JSON-LD, sitemap, robots.txt
+- F8 DONE: Google Sheets webhook — Code.gs + data-collect.js
+- F9 DONE: 4 Adsterra ad slots with clear placement comments
+- F10 DONE: GitHub repo created at https://github.com/taeshin11/thumbpreview
+- F11 DONE: Deployed to Vercel at https://public-nine-swart.vercel.app
+- F12 DONE: SETUP_GUIDE.md and README.md
+- F13 DONE: QA polish — softer card bg, focus-visible, mockup animations, a11y improvements
 
-Remaining: F10 (GitHub repo), F11 (deploy), F13 (QA & polish)
+ALL 13 FEATURES COMPLETE. Project is live.

@@ -12,6 +12,6 @@
     { "id": "F10", "name": "GitHub Repo Creation & Initial Push", "status": "done" },
     { "id": "F11", "name": "Deploy to Netlify/Vercel via CLI", "status": "done" },
     { "id": "F12", "name": "SETUP_GUIDE.md & README.md", "status": "done" },
-    { "id": "F13", "name": "Final QA — Cross-device Testing & Polish", "status": "in-progress" }
+    { "id": "F13", "name": "Final QA — Cross-device Testing & Polish", "status": "done" }
   ]
 }
