@@ -4,18 +4,19 @@
 [Session 1] — Starting project...
 
 [Session 2] — 2026-03-28
-- F1 DONE: Project scaffolding — full directory structure, index.html with semantic HTML5
-- F2 DONE: CSS — soft warm cream/navy palette, CSS custom properties, responsive (mobile-first), dark mode
-- F3 DONE: Thumbnail upload — drag-and-drop + file picker, client-side only via URL.createObjectURL
-- F4 DONE: All 7 YouTube mockup views — desktop home (light/dark), mobile (light/dark), search, sidebar, Shorts
-- F5 DONE: Live title & channel name editing across all mockups
-- F6 DONE: Visitor counter in footer (today + total)
-- F7 DONE: Full SEO — meta tags, OG, Twitter Card, JSON-LD, sitemap, robots.txt
-- F8 DONE: Google Sheets webhook — Code.gs + data-collect.js
-- F9 DONE: 4 Adsterra ad slots with clear placement comments
-- F10 DONE: GitHub repo created at https://github.com/taeshin11/thumbpreview
+- F1-F9, F12 DONE: Full project built from scratch
+- F10 DONE: GitHub repo at https://github.com/taeshin11/thumbpreview
 - F11 DONE: Deployed to Vercel at https://public-nine-swart.vercel.app
-- F12 DONE: SETUP_GUIDE.md and README.md
-- F13 DONE: QA polish — softer card bg, focus-visible, mockup animations, a11y improvements
+- F13 DONE: QA polish — softer card bg, focus-visible, animations, a11y
 
-ALL 13 FEATURES COMPLETE. Project is live.
+Post-PRD Improvements:
+- Fixed all URLs (canonical, OG, sitemap, robots.txt) to actual Vercel deployment
+- Auto-preview on upload (PRD: "Immediately render")
+- Inlined critical CSS for fast first paint
+- Added Roboto font for pixel-perfect YouTube mockup typography
+- Organized mockups into groups: Desktop Views, Mobile Views, Other Layouts
+- Added "Compare Light vs Dark" toggle for side-by-side comparison
+- Privacy badge replaces broken counter dashes when analytics not configured
+- Comparison mode collapses gracefully on mobile
+
+ALL PRD FEATURES + IMPROVEMENTS COMPLETE.
