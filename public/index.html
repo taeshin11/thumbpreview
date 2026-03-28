@@ -149,136 +149,156 @@
         <h2 class="mockups-heading">Your Thumbnail on YouTube</h2>
         <p class="mockups-subheading">See how viewers will see your thumbnail across different YouTube layouts.</p>
 
-        <div class="mockups-grid">
+        <!-- Mockups Toolbar -->
+        <div class="mockups-toolbar">
+          <button class="btn btn-secondary btn-sm" id="compareToggle">
+            <span id="compareIcon">&#8644;</span> Compare Light vs Dark
+          </button>
+        </div>
 
-          <!-- 1. Desktop Home Feed — Light -->
-          <article class="mockup-card">
-            <h3 class="mockup-label">Desktop Home Feed — Light</h3>
-            <div class="mockup-frame yt-desktop-home yt-light">
-              <div class="yt-thumb-wrapper">
-                <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in desktop home feed light mode">
-                <span class="yt-duration">12:34</span>
-              </div>
-              <div class="yt-meta">
-                <div class="yt-avatar"></div>
-                <div class="yt-info">
-                  <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
-                  <p class="yt-channel" data-mockup="channel">Your Channel</p>
-                  <p class="yt-stats">123K views &middot; 2 days ago</p>
-                </div>
-              </div>
-            </div>
-          </article>
+        <!-- Desktop Views -->
+        <div class="mockup-group">
+          <h3 class="mockup-group-heading">Desktop Views</h3>
+          <div class="mockups-grid" id="desktopGrid">
 
-          <!-- 2. Desktop Home Feed — Dark -->
-          <article class="mockup-card">
-            <h3 class="mockup-label">Desktop Home Feed — Dark</h3>
-            <div class="mockup-frame yt-desktop-home yt-dark">
-              <div class="yt-thumb-wrapper">
-                <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in desktop home feed dark mode">
-                <span class="yt-duration">12:34</span>
-              </div>
-              <div class="yt-meta">
-                <div class="yt-avatar"></div>
-                <div class="yt-info">
-                  <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
-                  <p class="yt-channel" data-mockup="channel">Your Channel</p>
-                  <p class="yt-stats">123K views &middot; 2 days ago</p>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- 3. Mobile Home Feed — Light -->
-          <article class="mockup-card">
-            <h3 class="mockup-label">Mobile Home Feed — Light</h3>
-            <div class="mockup-frame yt-mobile-home yt-light">
-              <div class="yt-thumb-wrapper yt-mobile-thumb">
-                <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in mobile home feed light mode">
-                <span class="yt-duration">12:34</span>
-              </div>
-              <div class="yt-meta yt-mobile-meta">
-                <div class="yt-avatar yt-avatar-sm"></div>
-                <div class="yt-info">
-                  <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
-                  <p class="yt-channel-stats"><span data-mockup="channel">Your Channel</span> &middot; 123K views &middot; 2 days ago</p>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- 4. Mobile Home Feed — Dark -->
-          <article class="mockup-card">
-            <h3 class="mockup-label">Mobile Home Feed — Dark</h3>
-            <div class="mockup-frame yt-mobile-home yt-dark">
-              <div class="yt-thumb-wrapper yt-mobile-thumb">
-                <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in mobile home feed dark mode">
-                <span class="yt-duration">12:34</span>
-              </div>
-              <div class="yt-meta yt-mobile-meta">
-                <div class="yt-avatar yt-avatar-sm"></div>
-                <div class="yt-info">
-                  <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
-                  <p class="yt-channel-stats"><span data-mockup="channel">Your Channel</span> &middot; 123K views &middot; 2 days ago</p>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- 5. Desktop Search Results -->
-          <article class="mockup-card mockup-card--wide">
-            <h3 class="mockup-label">Desktop Search Results</h3>
-            <div class="mockup-frame yt-search yt-light">
-              <div class="yt-search-layout">
-                <div class="yt-thumb-wrapper yt-search-thumb">
-                  <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in search results">
+            <article class="mockup-card" data-compare-group="desktop-home" data-compare-variant="light">
+              <h3 class="mockup-label">Home Feed — Light</h3>
+              <div class="mockup-frame yt-desktop-home yt-light">
+                <div class="yt-thumb-wrapper">
+                  <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in desktop home feed light mode">
                   <span class="yt-duration">12:34</span>
                 </div>
-                <div class="yt-search-info">
-                  <p class="yt-title yt-search-title" data-mockup="title">Your Amazing Video Title Here</p>
-                  <p class="yt-stats">123K views &middot; 2 days ago</p>
-                  <div class="yt-search-channel">
-                    <div class="yt-avatar yt-avatar-xs"></div>
-                    <span data-mockup="channel">Your Channel</span>
+                <div class="yt-meta">
+                  <div class="yt-avatar"></div>
+                  <div class="yt-info">
+                    <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
+                    <p class="yt-channel" data-mockup="channel">Your Channel</p>
+                    <p class="yt-stats">123K views &middot; 2 days ago</p>
                   </div>
-                  <p class="yt-search-desc">This is a placeholder description for the video. It shows how your video appears in YouTube search results alongside other content.</p>
                 </div>
               </div>
-            </div>
-          </article>
+            </article>
 
-          <!-- 6. Desktop Sidebar / Suggested Videos -->
-          <article class="mockup-card">
-            <h3 class="mockup-label">Sidebar — Suggested Videos</h3>
-            <div class="mockup-frame yt-sidebar yt-light">
-              <div class="yt-sidebar-layout">
-                <div class="yt-thumb-wrapper yt-sidebar-thumb">
-                  <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in sidebar suggested videos">
-                  <span class="yt-duration yt-duration-sm">12:34</span>
+            <article class="mockup-card" data-compare-group="desktop-home" data-compare-variant="dark">
+              <h3 class="mockup-label">Home Feed — Dark</h3>
+              <div class="mockup-frame yt-desktop-home yt-dark">
+                <div class="yt-thumb-wrapper">
+                  <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in desktop home feed dark mode">
+                  <span class="yt-duration">12:34</span>
                 </div>
-                <div class="yt-sidebar-info">
-                  <p class="yt-title yt-sidebar-title" data-mockup="title">Your Amazing Video Title Here</p>
-                  <p class="yt-channel yt-sidebar-channel" data-mockup="channel">Your Channel</p>
-                  <p class="yt-stats yt-sidebar-stats">123K views &middot; 2 days ago</p>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- 7. Shorts-style Vertical Card -->
-          <article class="mockup-card">
-            <h3 class="mockup-label">Shorts-style Card</h3>
-            <div class="mockup-frame yt-shorts">
-              <div class="yt-shorts-card">
-                <img class="yt-thumb yt-shorts-thumb" data-mockup="thumb" alt="Thumbnail preview as Shorts card">
-                <div class="yt-shorts-overlay">
-                  <p class="yt-title yt-shorts-title" data-mockup="title">Your Amazing Video Title Here</p>
-                  <p class="yt-shorts-views">123K views</p>
+                <div class="yt-meta">
+                  <div class="yt-avatar"></div>
+                  <div class="yt-info">
+                    <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
+                    <p class="yt-channel" data-mockup="channel">Your Channel</p>
+                    <p class="yt-stats">123K views &middot; 2 days ago</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </article>
+            </article>
 
+            <article class="mockup-card mockup-card--wide">
+              <h3 class="mockup-label">Search Results</h3>
+              <div class="mockup-frame yt-search yt-light">
+                <div class="yt-search-layout">
+                  <div class="yt-thumb-wrapper yt-search-thumb">
+                    <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in search results">
+                    <span class="yt-duration">12:34</span>
+                  </div>
+                  <div class="yt-search-info">
+                    <p class="yt-title yt-search-title" data-mockup="title">Your Amazing Video Title Here</p>
+                    <p class="yt-stats">123K views &middot; 2 days ago</p>
+                    <div class="yt-search-channel">
+                      <div class="yt-avatar yt-avatar-xs"></div>
+                      <span data-mockup="channel">Your Channel</span>
+                    </div>
+                    <p class="yt-search-desc">This is a placeholder description for the video. It shows how your video appears in YouTube search results alongside other content.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="mockup-card">
+              <h3 class="mockup-label">Sidebar — Suggested</h3>
+              <div class="mockup-frame yt-sidebar yt-light">
+                <div class="yt-sidebar-layout">
+                  <div class="yt-thumb-wrapper yt-sidebar-thumb">
+                    <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in sidebar suggested videos">
+                    <span class="yt-duration yt-duration-sm">12:34</span>
+                  </div>
+                  <div class="yt-sidebar-info">
+                    <p class="yt-title yt-sidebar-title" data-mockup="title">Your Amazing Video Title Here</p>
+                    <p class="yt-channel yt-sidebar-channel" data-mockup="channel">Your Channel</p>
+                    <p class="yt-stats yt-sidebar-stats">123K views &middot; 2 days ago</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- Mobile Views -->
+        <div class="mockup-group">
+          <h3 class="mockup-group-heading">Mobile Views</h3>
+          <div class="mockups-grid" id="mobileGrid">
+
+            <article class="mockup-card" data-compare-group="mobile-home" data-compare-variant="light">
+              <h3 class="mockup-label">Home Feed — Light</h3>
+              <div class="mockup-frame yt-mobile-home yt-light">
+                <div class="yt-thumb-wrapper yt-mobile-thumb">
+                  <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in mobile home feed light mode">
+                  <span class="yt-duration">12:34</span>
+                </div>
+                <div class="yt-meta yt-mobile-meta">
+                  <div class="yt-avatar yt-avatar-sm"></div>
+                  <div class="yt-info">
+                    <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
+                    <p class="yt-channel-stats"><span data-mockup="channel">Your Channel</span> &middot; 123K views &middot; 2 days ago</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="mockup-card" data-compare-group="mobile-home" data-compare-variant="dark">
+              <h3 class="mockup-label">Home Feed — Dark</h3>
+              <div class="mockup-frame yt-mobile-home yt-dark">
+                <div class="yt-thumb-wrapper yt-mobile-thumb">
+                  <img class="yt-thumb" data-mockup="thumb" alt="Thumbnail preview in mobile home feed dark mode">
+                  <span class="yt-duration">12:34</span>
+                </div>
+                <div class="yt-meta yt-mobile-meta">
+                  <div class="yt-avatar yt-avatar-sm"></div>
+                  <div class="yt-info">
+                    <p class="yt-title" data-mockup="title">Your Amazing Video Title Here</p>
+                    <p class="yt-channel-stats"><span data-mockup="channel">Your Channel</span> &middot; 123K views &middot; 2 days ago</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- Other Layouts -->
+        <div class="mockup-group">
+          <h3 class="mockup-group-heading">Other Layouts</h3>
+          <div class="mockups-grid">
+
+            <article class="mockup-card">
+              <h3 class="mockup-label">Shorts-style Card</h3>
+              <div class="mockup-frame yt-shorts">
+                <div class="yt-shorts-card">
+                  <img class="yt-thumb yt-shorts-thumb" data-mockup="thumb" alt="Thumbnail preview as Shorts card">
+                  <div class="yt-shorts-overlay">
+                    <p class="yt-title yt-shorts-title" data-mockup="title">Your Amazing Video Title Here</p>
+                    <p class="yt-shorts-views">123K views</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </div>
         </div>
       </div>
     </section>

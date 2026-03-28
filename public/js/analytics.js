@@ -14,7 +14,11 @@
 
   async function fetchVisitorCount() {
     if (!COUNTER_URL) {
-      console.warn('[ThumbPreview] Visitor counter URL not set. See SETUP_GUIDE.md for instructions.');
+      // No counter configured — show privacy badge instead of broken dashes
+      var counterEl = document.getElementById('visitorCounter');
+      if (counterEl) {
+        counterEl.innerHTML = '<span class="privacy-badge">&#128274; Your images never leave your browser</span>';
+      }
       return;
     }
 

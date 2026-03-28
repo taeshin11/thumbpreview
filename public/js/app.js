@@ -167,6 +167,18 @@
     });
   });
 
+  // --- Comparison Mode ---
+  var compareToggle = document.getElementById('compareToggle');
+  if (compareToggle) {
+    compareToggle.addEventListener('click', function () {
+      var section = document.getElementById('mockupsSection');
+      var isCompare = section.classList.toggle('compare-mode');
+      compareToggle.innerHTML = isCompare
+        ? '<span>&#10005;</span> Exit Comparison'
+        : '<span>&#8644;</span> Compare Light vs Dark';
+    });
+  }
+
   // --- Reset ---
   resetBtn.addEventListener('click', function () {
     if (currentImageURL) {
