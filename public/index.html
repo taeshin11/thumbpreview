@@ -86,7 +86,7 @@
         <p class="section-subtitle">Upload a thumbnail and see how it looks on real YouTube layouts — all processed in your browser. No uploads to any server.</p>
 
         <!-- Upload Area -->
-        <div class="upload-area" id="uploadArea" tabindex="0" role="button" aria-label="Click or drag to upload thumbnail">
+        <div class="upload-area" id="uploadArea" tabindex="0" role="button" aria-label="Click or drag to upload thumbnail" aria-describedby="uploadHint">
           <div class="upload-placeholder" id="uploadPlaceholder">
             <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -94,7 +94,7 @@
               <line x1="12" y1="3" x2="12" y2="15"/>
             </svg>
             <p class="upload-text">Drag & drop your thumbnail here</p>
-            <p class="upload-hint">or click to browse (PNG, JPG, WebP)</p>
+            <p class="upload-hint" id="uploadHint">or click to browse (PNG, JPG, WebP)</p>
           </div>
           <img id="uploadPreview" class="upload-preview" alt="Uploaded thumbnail preview" style="display:none;">
           <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.webp" hidden aria-label="Choose thumbnail file">
