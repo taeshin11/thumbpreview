@@ -105,10 +105,13 @@
 
     // Store filename for data collection
     previewBtn.dataset.filename = file.name;
+
+    // Immediately render previews (PRD: "Immediately render the uploaded thumbnail")
+    renderPreviews();
   }
 
   // --- Generate Previews ---
-  previewBtn.addEventListener('click', function () {
+  function renderPreviews() {
     if (!currentImageURL) return;
 
     var title = videoTitle.value.trim() || 'Your Amazing Video Title Here';
@@ -143,7 +146,9 @@
     if (typeof window.collectData === 'function') {
       window.collectData(previewBtn.dataset.filename, title, channel);
     }
-  });
+  }
+
+  previewBtn.addEventListener('click', renderPreviews);
 
   // --- Live Title & Channel Updates ---
   videoTitle.addEventListener('input', function () {

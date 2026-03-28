@@ -28,9 +28,25 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&family=Outfit:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Styles -->
+  <!-- Critical CSS (inlined for fast first paint) -->
+  <style>
+    :root{--bg-primary:#F5F3EF;--bg-card:#FDFCFA;--text-primary:#2D2A26;--text-secondary:#6B6560;--accent:#E07A5F;--border:#DDD8D0;--shadow:0 2px 12px rgba(0,0,0,.06);--radius:12px;--font-display:'Outfit',sans-serif;--font-body:'DM Sans',sans-serif}
+    [data-theme="dark"]{--bg-primary:#1A1A2E;--bg-card:#2A2A44;--text-primary:#E8E6E1;--text-secondary:#A8A4A0;--border:#3A3A54;--shadow:0 2px 12px rgba(0,0,0,.2)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px}body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);line-height:1.6;min-height:100vh}
+    .container{max-width:1280px;margin:0 auto;padding:0 20px}
+    .site-header{background:var(--bg-card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;height:60px}
+    .logo{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:1.3rem;color:var(--text-primary);text-decoration:none}
+    .logo-icon{display:flex;align-items:center;justify-content:center;width:34px;height:34px;background:var(--accent);color:#fff;border-radius:8px;font-size:.9rem}
+    .logo-text strong{color:var(--accent)}
+    .upload-section{background:var(--bg-card);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);border:1px solid var(--border)}
+    .section-title{font-family:var(--font-display);font-size:1.8rem;font-weight:700;margin-bottom:8px}
+  </style>
+
+  <!-- Full stylesheet (non-blocking) -->
   <link rel="stylesheet" href="/css/style.css">
 
   <!-- JSON-LD Structured Data -->
