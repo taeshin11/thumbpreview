@@ -250,20 +250,22 @@ button, input {
 
 /* Upload Area */
 .upload-area {
-  border: 2px dashed var(--border);
+  border: 2px dashed var(--accent);
   border-radius: var(--radius);
   padding: 48px 24px;
   text-align: center;
   cursor: pointer;
-  transition: border-color var(--transition), background var(--transition);
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
   position: relative;
   overflow: hidden;
+  background: var(--accent-light);
 }
 
 .upload-area:hover,
 .upload-area:focus {
-  border-color: var(--accent);
-  background: var(--accent-light);
+  border-color: var(--accent-hover);
+  background: rgba(224, 122, 95, 0.18);
+  box-shadow: 0 0 0 4px var(--accent-light);
   outline: none;
 }
 

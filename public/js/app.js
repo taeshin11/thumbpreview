@@ -78,6 +78,20 @@
     }
   });
 
+  // Clipboard paste (Ctrl+V anywhere on the page)
+  document.addEventListener('paste', function (e) {
+    var items = e.clipboardData && e.clipboardData.items;
+    if (!items) return;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf('image/') === 0) {
+        e.preventDefault();
+        var file = items[i].getAsFile();
+        if (file) handleFile(file);
+        return;
+      }
+    }
+  });
+
   function handleFile(file) {
     var validTypes = ['image/png', 'image/jpeg', 'image/webp'];
     if (!validTypes.includes(file.type)) {
