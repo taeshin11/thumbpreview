@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thumbpreview.netlify.app/sitemap.xml
+Sitemap: https://public-nine-swart.vercel.app/sitemap.xml
