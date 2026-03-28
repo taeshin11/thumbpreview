@@ -35,7 +35,7 @@
 ### Step 1: Create an Adsterra Account
 1. Go to [Adsterra Publisher Signup](https://publishers.adsterra.com/sign-up).
 2. Register as a Publisher.
-3. Add your deployed site URL (e.g., `https://thumbpreview.netlify.app`).
+3. Add your deployed site URL (e.g., `https://public-nine-swart.vercel.app`).
 4. Wait for approval (usually under 24 hours).
 
 ### Step 2: Create Ad Units
