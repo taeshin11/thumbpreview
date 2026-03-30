@@ -208,8 +208,8 @@
   if (copyLinkBtn) {
     copyLinkBtn.addEventListener('click', function () {
       navigator.clipboard.writeText('https://public-nine-swart.vercel.app').then(function () {
-        copyLinkBtn.textContent = 'Copied!';
-        setTimeout(function () { copyLinkBtn.textContent = 'Copy Link'; }, 2000);
+        copyLinkBtn.textContent = (window.__tp_t ? window.__tp_t('copied') : 'Copied!');
+        setTimeout(function () { copyLinkBtn.textContent = (window.__tp_t ? window.__tp_t('copyLink') : 'Copy Link'); }, 2000);
       });
     });
   }
@@ -219,7 +219,7 @@
   if (downloadAllBtn) {
     downloadAllBtn.addEventListener('click', function () {
       if (!currentImageURL) {
-        alert('Please upload a thumbnail first.');
+        alert(window.__tp_t ? window.__tp_t('alertNoImage') : 'Please upload a thumbnail first.');
         return;
       }
 
