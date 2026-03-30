@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free YouTube Thumbnail Previewer — Test How Your Thumbnail Looks | ThumbPreview</title>
   <meta name="description" content="Upload your YouTube thumbnail and instantly preview how it looks on desktop, mobile, dark mode, search results, and sidebar — 100% free, no signup required.">
-  <meta name="keywords" content="youtube thumbnail preview, thumbnail tester, youtube thumbnail checker, thumbnail previewer free">
+  <meta name="keywords" content="youtube thumbnail preview, thumbnail tester, youtube thumbnail checker, thumbnail previewer free, youtube thumbnail size, test youtube thumbnail, thumbnail preview tool, youtube thumbnail mockup, how to preview youtube thumbnail, youtube thumbnail dark mode, youtube thumbnail mobile preview, free thumbnail generator, youtube thumbnail dimensions, youtube thumbnail test before upload">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="author" content="ThumbPreview">
   <link rel="canonical" href="https://public-nine-swart.vercel.app/">
 
   <!-- Open Graph -->
@@ -69,6 +71,96 @@
       "priceCurrency": "USD"
     },
     "browserRequirements": "Requires a modern web browser with JavaScript enabled"
+  }
+  </script>
+
+  <!-- FAQ Schema for Google Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I preview my YouTube thumbnail before uploading?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simply visit ThumbPreview, drag and drop your thumbnail image (or click to browse), and instantly see how it looks across 7 real YouTube layouts including desktop home feed, mobile feed, search results, sidebar, and Shorts — all in both light and dark mode."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is ThumbPreview free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, ThumbPreview is 100% free with no signup required. There are no premium tiers, no watermarks, and no usage limits. You can preview as many thumbnails as you want."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my thumbnail safe? Does ThumbPreview upload my images?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Your thumbnails never leave your browser. ThumbPreview processes everything client-side using your browser's built-in APIs. No images are uploaded to any server. When you close the tab, the image data is automatically destroyed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What YouTube layouts can I preview my thumbnail on?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ThumbPreview shows your thumbnail in 7 layouts: Desktop Home Feed (Light & Dark), Mobile Home Feed (Light & Dark), Search Results, Sidebar Suggested Videos, and Shorts-style Vertical Card."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What image formats does ThumbPreview support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ThumbPreview supports PNG, JPG/JPEG, and WebP image formats up to 10MB. The recommended YouTube thumbnail size is 1280x720 pixels with a 16:9 aspect ratio."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I test my thumbnail with a custom video title?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! You can customize both the video title and channel name. Changes update in real-time across all 7 preview mockups, so you can see how your title text looks at different truncation points on each layout."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- HowTo Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Preview a YouTube Thumbnail Before Uploading",
+    "description": "Use ThumbPreview to see exactly how your YouTube thumbnail will look across desktop, mobile, dark mode, search results, and sidebar layouts — all for free, no signup required.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Upload your thumbnail",
+        "text": "Drag and drop your thumbnail image onto the upload area, click to browse your files, or paste from clipboard with Ctrl+V. Supported formats: PNG, JPG, WebP."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Customize title and channel name",
+        "text": "Enter your video title and channel name in the input fields. These update in real-time across all preview mockups."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Review all 7 YouTube layouts",
+        "text": "Scroll down to see your thumbnail rendered in Desktop Home Feed (Light/Dark), Mobile Feed (Light/Dark), Search Results, Sidebar, and Shorts card layouts."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Compare light vs dark mode",
+        "text": "Click the Compare Light vs Dark button to view light and dark variants side by side for easy comparison."
+      }
+    ]
   }
   </script>
 </head>
@@ -173,8 +265,23 @@
         <!-- Mockups Toolbar -->
         <div class="mockups-toolbar">
           <button class="btn btn-secondary btn-sm" id="compareToggle">
-            <span id="compareIcon">&#8644;</span> Compare Light vs Dark
+            <span>&#8644;</span> Compare Light vs Dark
           </button>
+          <button class="btn btn-secondary btn-sm" id="downloadAllBtn" title="Download all previews as one image">
+            <span>&#11015;</span> Download Previews
+          </button>
+          <button class="btn btn-secondary btn-sm" id="shareBtn" title="Share ThumbPreview with others">
+            <span>&#128279;</span> Share
+          </button>
+        </div>
+
+        <!-- Share dropdown (hidden by default) -->
+        <div class="share-dropdown" id="shareDropdown" style="display:none;">
+          <a href="https://twitter.com/intent/tweet?text=I%20use%20ThumbPreview%20to%20test%20my%20YouTube%20thumbnails%20before%20uploading%20%E2%80%94%20100%25%20free!&url=https://public-nine-swart.vercel.app" target="_blank" rel="noopener" class="share-link share-twitter">Twitter / X</a>
+          <a href="https://www.reddit.com/submit?url=https://public-nine-swart.vercel.app&title=Free%20YouTube%20Thumbnail%20Previewer%20%E2%80%94%20see%20how%20your%20thumbnail%20looks%20on%20real%20YouTube%20layouts" target="_blank" rel="noopener" class="share-link share-reddit">Reddit</a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://public-nine-swart.vercel.app" target="_blank" rel="noopener" class="share-link share-facebook">Facebook</a>
+          <a href="https://pinterest.com/pin/create/button/?url=https://public-nine-swart.vercel.app&description=Free%20YouTube%20Thumbnail%20Previewer" target="_blank" rel="noopener" class="share-link share-pinterest">Pinterest</a>
+          <button class="share-link share-copy" id="copyLinkBtn">Copy Link</button>
         </div>
 
         <!-- Desktop Views -->
@@ -334,6 +441,45 @@
 
   </main>
 
+  <!-- SEO: FAQ Section for organic traffic -->
+  <section class="faq-section" aria-label="Frequently Asked Questions">
+    <div class="container">
+      <h2 class="faq-heading">Frequently Asked Questions</h2>
+      <div class="faq-grid">
+        <details class="faq-item">
+          <summary>How do I preview my YouTube thumbnail before uploading?</summary>
+          <div class="faq-answer"><p>Drag and drop your thumbnail image onto ThumbPreview, or click to browse. You'll instantly see it across 7 real YouTube layouts: desktop home feed, mobile feed, search results, sidebar, and Shorts — in both light and dark mode. No signup needed.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Is ThumbPreview really free?</summary>
+          <div class="faq-answer"><p>Yes, 100% free with no usage limits, no watermarks, and no premium tiers. There's no signup or account required — just open the site and start previewing.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Are my thumbnails safe? Is anything uploaded?</summary>
+          <div class="faq-answer"><p>Your thumbnails never leave your browser. ThumbPreview processes everything locally using browser APIs. No images are sent to any server. When you close the tab, the data is destroyed.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>What's the best YouTube thumbnail size?</summary>
+          <div class="faq-answer"><p>YouTube recommends 1280x720 pixels (16:9 aspect ratio) with a minimum width of 640 pixels. Supported formats are JPG, PNG, and WebP, with a max file size of 2MB on YouTube. ThumbPreview supports images up to 10MB for your design drafts.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Can I test my thumbnail with my actual video title?</summary>
+          <div class="faq-answer"><p>Yes! Enter your video title and channel name in the fields above the preview area. They update in real-time across all 7 mockup layouts, so you can see exactly how your title appears at different truncation points.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Does ThumbPreview work on mobile?</summary>
+          <div class="faq-answer"><p>Yes, ThumbPreview is fully responsive and works on phones, tablets, and desktops. You can upload thumbnails using the file picker or by pasting from your clipboard.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating feedback button -->
+  <a href="mailto:taeshinkim11@gmail.com?subject=ThumbPreview%20Feedback&body=Hi%2C%20I%20have%20a%20suggestion%20for%20ThumbPreview%3A%0A%0A" class="feedback-fab" id="feedbackFab" title="Send feedback or suggestions" aria-label="Send feedback">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span class="feedback-fab-label">Feedback</span>
+  </a>
+
   <!-- FOOTER -->
   <footer class="site-footer">
     <!-- AD: Footer Banner -->
@@ -361,6 +507,7 @@
         <a href="/">Home</a>
         <a href="/about.html">About</a>
         <a href="/how-to-use.html">How to Use</a>
+        <a href="/youtube-thumbnail-size-guide.html">Thumbnail Size Guide</a>
         <a href="/privacy.html">Privacy Policy</a>
         <a href="/terms.html">Terms of Service</a>
       </nav>
