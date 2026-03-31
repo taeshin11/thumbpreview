@@ -187,9 +187,11 @@
     compareToggle.addEventListener('click', function () {
       var section = document.getElementById('mockupsSection');
       var isCompare = section.classList.toggle('compare-mode');
+      var exitText = (window.__tp_t ? window.__tp_t('exitCompare') : 'Exit Comparison');
+      var compareText = (window.__tp_t ? window.__tp_t('compareBtn') : 'Compare Light vs Dark');
       compareToggle.innerHTML = isCompare
-        ? '<span>&#10005;</span> Exit Comparison'
-        : '<span>&#8644;</span> Compare Light vs Dark';
+        ? '<span>&#10005;</span> ' + exitText
+        : '<span>&#8644;</span> ' + compareText;
     });
   }
 

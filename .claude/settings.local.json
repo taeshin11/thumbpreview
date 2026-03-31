@@ -29,7 +29,13 @@
       "Bash(curl -s \"https://www.bing.com/ping?sitemap=https://public-nine-swart.vercel.app/sitemap.xml\")",
       "Bash(python3 -c \"import uuid; print\\(uuid.uuid4\\(\\).hex[:32]\\)\")",
       "Bash(python -c \"import uuid; print\\(uuid.uuid4\\(\\).hex[:32]\\)\")",
-      "Bash(curl -s -X POST \"https://api.indexnow.org/indexnow\" -H \"Content-Type: application/json\" -d '{:*)"
+      "Bash(curl -s -X POST \"https://api.indexnow.org/indexnow\" -H \"Content-Type: application/json\" -d '{:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(curl -s -o /dev/null -w \"HTTP_CODE:%{http_code} SIZE:%{size_download}\" \"https://public-nine-swart.vercel.app/js/i18n.js\")",
+      "Bash(node -c C:/MakingApps/ThumbPreview/public/js/i18n.js)",
+      "Bash(node -e \":*)",
+      "Bash(node -c C:/MakingApps/ThumbPreview/public/js/app.js)"
     ]
   }
 }

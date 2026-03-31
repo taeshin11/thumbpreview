@@ -1,22 +1,18 @@
 /**
- * ThumbPreview — Client-side internationalization (i18n)
- * Auto-detects browser language, translates all UI text.
- * Supported: en, ko, ja, zh, es, pt, fr, de, hi, id, th, vi, tr, ru, ar
+ * ThumbPreview — Client-side i18n
+ * Auto-detects browser language OR uses manual selector.
+ * Translates all [data-i18n] elements + special cases.
+ * 15 languages: en, ko, ja, zh, es, pt, fr, de, hi, id, th, vi, tr, ru, ar
  */
 (function () {
   'use strict';
 
-  var translations = {
+  var T = {
     en: {
-      // Header / page
-      pageTitle: 'Free YouTube Thumbnail Previewer — Test How Your Thumbnail Looks | ThumbPreview',
-      metaDesc: 'Upload your YouTube thumbnail and instantly preview how it looks on desktop, mobile, dark mode, search results, and sidebar — 100% free, no signup required.',
-
-      // Upload section
       sectionTitle: 'Preview Your YouTube Thumbnail',
       sectionSubtitle: 'Upload a thumbnail and see how it looks on real YouTube layouts — all processed in your browser. No uploads to any server.',
       uploadText: 'Drag & drop your thumbnail here',
-      uploadHint: 'or click to browse \u00b7 Ctrl+V to paste (PNG, JPG, WebP)',
+      uploadHint: 'or click to browse · Ctrl+V to paste (PNG, JPG, WebP)',
       videoTitleLabel: 'Video Title',
       channelNameLabel: 'Channel Name',
       videoTitlePlaceholder: 'Enter your video title',
@@ -25,35 +21,30 @@
       channelDefault: 'Your Channel',
       generateBtn: 'Generate Previews',
       resetBtn: 'Reset',
-
-      // Mockups
       mockupsHeading: 'Your Thumbnail on YouTube',
       mockupsSubheading: 'See how viewers will see your thumbnail across different YouTube layouts.',
       compareBtn: 'Compare Light vs Dark',
+      exitCompare: 'Exit Comparison',
       downloadBtn: 'Download Previews',
       shareBtn: 'Share',
       copyLink: 'Copy Link',
       copied: 'Copied!',
-
-      // Mockup labels
       desktopViews: 'Desktop Views',
       mobileViews: 'Mobile Views',
       otherLayouts: 'Other Layouts',
-      homeFeedLight: 'Home Feed \u2014 Light',
-      homeFeedDark: 'Home Feed \u2014 Dark',
+      homeFeedLight: 'Home Feed — Light',
+      homeFeedDark: 'Home Feed — Dark',
       searchResults: 'Search Results',
-      sidebarSuggested: 'Sidebar \u2014 Suggested',
+      sidebarSuggested: 'Sidebar — Suggested',
       shortsCard: 'Shorts-style Card',
       searchDesc: 'This is a placeholder description for the video. It shows how your video appears in YouTube search results alongside other content.',
-      viewsStats: '123K views \u00b7 2 days ago',
+      viewsStats: '123K views · 2 days ago',
       shortsViews: '123K views',
-
-      // FAQ
       faqHeading: 'Frequently Asked Questions',
       faqQ1: 'How do I preview my YouTube thumbnail before uploading?',
-      faqA1: 'Drag and drop your thumbnail image onto ThumbPreview, or click to browse. You\'ll instantly see it across 7 real YouTube layouts: desktop home feed, mobile feed, search results, sidebar, and Shorts \u2014 in both light and dark mode. No signup needed.',
+      faqA1: 'Drag and drop your thumbnail image onto ThumbPreview, or click to browse. You\'ll instantly see it across 7 real YouTube layouts: desktop home feed, mobile feed, search results, sidebar, and Shorts — in both light and dark mode. No signup needed.',
       faqQ2: 'Is ThumbPreview really free?',
-      faqA2: 'Yes, 100% free with no usage limits, no watermarks, and no premium tiers. There\'s no signup or account required \u2014 just open the site and start previewing.',
+      faqA2: 'Yes, 100% free with no usage limits, no watermarks, and no premium tiers. There\'s no signup or account required — just open the site and start previewing.',
       faqQ3: 'Are my thumbnails safe? Is anything uploaded?',
       faqA3: 'Your thumbnails never leave your browser. ThumbPreview processes everything locally using browser APIs. No images are sent to any server. When you close the tab, the data is destroyed.',
       faqQ4: 'What\'s the best YouTube thumbnail size?',
@@ -62,8 +53,6 @@
       faqA5: 'Yes! Enter your video title and channel name in the fields above the preview area. They update in real-time across all 7 mockup layouts, so you can see exactly how your title appears at different truncation points.',
       faqQ6: 'Does ThumbPreview work on mobile?',
       faqA6: 'Yes, ThumbPreview is fully responsive and works on phones, tablets, and desktops. You can upload thumbnails using the file picker or by pasting from your clipboard.',
-
-      // Footer
       feedbackBtn: 'Feedback',
       footerTagline: 'Free YouTube Thumbnail Previewer. 100% client-side. Your images never leave your browser.',
       footerHome: 'Home',
@@ -75,358 +64,299 @@
       footerTerms: 'Terms of Service',
       counterToday: 'Today',
       counterTotal: 'Total',
-      footerCopy: '\u00a9 2026 ThumbPreview. All rights reserved.',
-
-      // Upload alerts
-      alertNoImage: 'Please upload a thumbnail first.',
+      footerCopy: '© 2026 ThumbPreview. All rights reserved.',
+      alertNoImage: 'Please upload a thumbnail first.'
     },
 
     ko: {
-      pageTitle: '\ubb34\ub8cc YouTube \uc378\ub124\uc77c \ubbf8\ub9ac\ubcf4\uae30 \u2014 \uc5c5\ub85c\ub4dc \uc804 \ud655\uc778 | ThumbPreview',
-      metaDesc: 'YouTube \uc378\ub124\uc77c\uc744 \uc5c5\ub85c\ub4dc\ud558\uace0 \ub370\uc2a4\ud06c\ud1b1, \ubaa8\ubc14\uc77c, \ub2e4\ud06c\ubaa8\ub4dc, \uac80\uc0c9\uacb0\uacfc, \uc0ac\uc774\ub4dc\ubc14\uc5d0\uc11c \uc5b4\ub5bb\uac8c \ubcf4\uc774\ub294\uc9c0 \ubbf8\ub9ac \ud655\uc778\ud558\uc138\uc694.',
-      sectionTitle: 'YouTube \uc378\ub124\uc77c \ubbf8\ub9ac\ubcf4\uae30',
-      sectionSubtitle: '\uc378\ub124\uc77c\uc744 \uc5c5\ub85c\ub4dc\ud558\uba74 \uc2e4\uc81c YouTube \ub808\uc774\uc544\uc6c3\uc5d0\uc11c \uc5b4\ub5bb\uac8c \ubcf4\uc774\ub294\uc9c0 \ud655\uc778\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \ubaa8\ub4e0 \ucc98\ub9ac\ub294 \ube0c\ub77c\uc6b0\uc800\uc5d0\uc11c \uc774\ub8e8\uc5b4\uc9d1\ub2c8\ub2e4.',
-      uploadText: '\uc378\ub124\uc77c\uc744 \uc5ec\uae30\uc5d0 \ub4dc\ub798\uadf8 \uc564 \ub4dc\ub86d\ud558\uc138\uc694',
-      uploadHint: '\ub610\ub294 \ud074\ub9ad\ud558\uc5ec \ucc3e\uc544\ubcf4\uae30 \u00b7 Ctrl+V\ub85c \ubd99\uc5ec\ub123\uae30 (PNG, JPG, WebP)',
-      videoTitleLabel: '\ub3d9\uc601\uc0c1 \uc81c\ubaa9',
-      channelNameLabel: '\ucc44\ub110 \uc774\ub984',
-      videoTitlePlaceholder: '\ub3d9\uc601\uc0c1 \uc81c\ubaa9\uc744 \uc785\ub825\ud558\uc138\uc694',
-      channelNamePlaceholder: '\ucc44\ub110 \uc774\ub984\uc744 \uc785\ub825\ud558\uc138\uc694',
-      videoTitleDefault: '\uba4b\uc9c4 \ub3d9\uc601\uc0c1 \uc81c\ubaa9\uc744 \uc785\ub825\ud558\uc138\uc694',
-      channelDefault: '\ub0b4 \ucc44\ub110',
-      generateBtn: '\ubbf8\ub9ac\ubcf4\uae30 \uc0dd\uc131',
-      resetBtn: '\ucd08\uae30\ud654',
-      mockupsHeading: 'YouTube\uc5d0\uc11c\uc758 \ub0b4 \uc378\ub124\uc77c',
-      mockupsSubheading: '\uc2dc\uccad\uc790\ub4e4\uc774 \ub2e4\uc591\ud55c YouTube \ub808\uc774\uc544\uc6c3\uc5d0\uc11c \uc378\ub124\uc77c\uc744 \uc5b4\ub5bb\uac8c \ubcf4\uac8c \ub418\ub294\uc9c0 \ud655\uc778\ud558\uc138\uc694.',
-      compareBtn: '\ub77c\uc774\ud2b8/\ub2e4\ud06c \ubaa8\ub4dc \ube44\uad50',
-      downloadBtn: '\ubbf8\ub9ac\ubcf4\uae30 \ub2e4\uc6b4\ub85c\ub4dc',
-      shareBtn: '\uacf5\uc720',
-      copyLink: '\ub9c1\ud06c \ubcf5\uc0ac',
-      copied: '\ubcf5\uc0ac\ub428!',
-      desktopViews: '\ub370\uc2a4\ud06c\ud1b1 \ubcf4\uae30',
-      mobileViews: '\ubaa8\ubc14\uc77c \ubcf4\uae30',
-      otherLayouts: '\uae30\ud0c0 \ub808\uc774\uc544\uc6c3',
-      homeFeedLight: '\ud648 \ud53c\ub4dc \u2014 \ub77c\uc774\ud2b8',
-      homeFeedDark: '\ud648 \ud53c\ub4dc \u2014 \ub2e4\ud06c',
-      searchResults: '\uac80\uc0c9 \uacb0\uacfc',
-      sidebarSuggested: '\uc0ac\uc774\ub4dc\ubc14 \u2014 \ucd94\ucc9c',
-      shortsCard: 'Shorts \uc2a4\ud0c0\uc77c \uce74\ub4dc',
-      searchDesc: '\ub3d9\uc601\uc0c1\uc758 \uc124\uba85 \ud50c\ub808\uc774\uc2a4\ud640\ub354\uc785\ub2c8\ub2e4. YouTube \uac80\uc0c9 \uacb0\uacfc\uc5d0\uc11c \ub3d9\uc601\uc0c1\uc774 \uc5b4\ub5bb\uac8c \ud45c\uc2dc\ub418\ub294\uc9c0 \ubcf4\uc5ec\uc90d\ub2c8\ub2e4.',
-      viewsStats: '\uc870\ud68c\uc218 12.3\ub9cc\ud68c \u00b7 2\uc77c \uc804',
-      shortsViews: '\uc870\ud68c\uc218 12.3\ub9cc\ud68c',
-      faqHeading: '\uc790\uc8fc \ubb3b\ub294 \uc9c8\ubb38',
-      faqQ1: 'YouTube \uc378\ub124\uc77c\uc744 \uc5c5\ub85c\ub4dc \uc804\uc5d0 \uc5b4\ub5bb\uac8c \ubbf8\ub9ac\ubcf4\uae30 \ud558\ub098\uc694?',
-      faqA1: 'ThumbPreview\uc5d0 \uc378\ub124\uc77c \uc774\ubbf8\uc9c0\ub97c \ub4dc\ub798\uadf8 \uc564 \ub4dc\ub86d\ud558\uac70\ub098 \ud074\ub9ad\ud558\uc5ec \ucc3e\uc544\ubcf4\uc138\uc694. \ub370\uc2a4\ud06c\ud1b1 \ud648 \ud53c\ub4dc, \ubaa8\ubc14\uc77c \ud53c\ub4dc, \uac80\uc0c9 \uacb0\uacfc, \uc0ac\uc774\ub4dc\ubc14, Shorts \ub4f1 7\uac00\uc9c0 \ub808\uc774\uc544\uc6c3\uc5d0\uc11c \ub77c\uc774\ud2b8/\ub2e4\ud06c \ubaa8\ub4dc\ub85c \ubc14\ub85c \ud655\uc778\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.',
-      faqQ2: 'ThumbPreview\ub294 \uc815\ub9d0 \ubb34\ub8cc\uc778\uac00\uc694?',
-      faqA2: '\ub124, 100% \ubb34\ub8cc\uc785\ub2c8\ub2e4. \uc0ac\uc6a9 \uc81c\ud55c, \uc6cc\ud130\ub9c8\ud06c, \uc720\ub8cc \ub4f1\uae09\uc774 \uc5c6\uc2b5\ub2c8\ub2e4. \ud68c\uc6d0\uac00\uc785 \uc5c6\uc774 \ubc14\ub85c \uc0ac\uc6a9\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.',
-      faqQ3: '\ub0b4 \uc378\ub124\uc77c\uc740 \uc548\uc804\ud55c\uac00\uc694? \uc5c5\ub85c\ub4dc\ub418\ub098\uc694?',
-      faqA3: '\uc378\ub124\uc77c\uc740 \ube0c\ub77c\uc6b0\uc800\ub97c \ub5a0\ub098\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4. ThumbPreview\ub294 \ube0c\ub77c\uc6b0\uc800 API\ub97c \uc0ac\uc6a9\ud558\uc5ec \ubaa8\ub4e0 \uac83\uc744 \ub85c\uceec\uc5d0\uc11c \ucc98\ub9ac\ud569\ub2c8\ub2e4. \uc11c\ubc84\uc5d0 \uc774\ubbf8\uc9c0\uac00 \uc804\uc1a1\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.',
-      faqQ4: '\ucd5c\uc801\uc758 YouTube \uc378\ub124\uc77c \ud06c\uae30\ub294?',
-      faqA4: 'YouTube\ub294 1280x720 \ud53d\uc140 (16:9 \ube44\uc728), \ucd5c\uc18c \ub108\ube44 640\ud53d\uc140\uc744 \uad8c\uc7a5\ud569\ub2c8\ub2e4. \uc9c0\uc6d0 \ud615\uc2dd\uc740 JPG, PNG, WebP\uc774\uba70 YouTube \ucd5c\ub300 \ud30c\uc77c \ud06c\uae30\ub294 2MB\uc785\ub2c8\ub2e4.',
-      faqQ5: '\uc2e4\uc81c \ub3d9\uc601\uc0c1 \uc81c\ubaa9\uc73c\ub85c \ud14c\uc2a4\ud2b8\ud560 \uc218 \uc788\ub098\uc694?',
-      faqA5: '\ub124! \ubbf8\ub9ac\ubcf4\uae30 \uc601\uc5ed \uc704\uc758 \uc785\ub825\ub780\uc5d0 \ub3d9\uc601\uc0c1 \uc81c\ubaa9\uacfc \ucc44\ub110 \uc774\ub984\uc744 \uc785\ub825\ud558\uc138\uc694. 7\uac00\uc9c0 \ubaa8\ub4e0 \ubaa8\ud0d5 \ub808\uc774\uc544\uc6c3\uc5d0 \uc2e4\uc2dc\uac04\uc73c\ub85c \ubc18\uc601\ub429\ub2c8\ub2e4.',
-      faqQ6: 'ThumbPreview\ub294 \ubaa8\ubc14\uc77c\uc5d0\uc11c\ub3c4 \uc791\ub3d9\ud558\ub098\uc694?',
-      faqA6: '\ub124, ThumbPreview\ub294 \uc644\uc804\ud788 \ubc18\uc751\ud615\uc774\uba70 \ud578\ub4dc\ud3f0, \ud0dc\ube14\ub9bf, \ub370\uc2a4\ud06c\ud1b1\uc5d0\uc11c \ubaa8\ub450 \uc791\ub3d9\ud569\ub2c8\ub2e4. \ud30c\uc77c \uc120\ud0dd\uae30 \ub610\ub294 \ud074\ub9bd\ubcf4\ub4dc \ubd99\uc5ec\ub123\uae30\ub85c \uc378\ub124\uc77c\uc744 \uc5c5\ub85c\ub4dc\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.',
-      feedbackBtn: '\ud53c\ub4dc\ubc31',
-      footerTagline: '\ubb34\ub8cc YouTube \uc378\ub124\uc77c \ubbf8\ub9ac\ubcf4\uae30. 100% \ud074\ub77c\uc774\uc5b8\ud2b8 \ucc98\ub9ac. \uc774\ubbf8\uc9c0\uac00 \uc808\ub300 \uc11c\ubc84\ub85c \uc804\uc1a1\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.',
-      footerHome: '\ud648',
-      footerAbout: '\uc18c\uac1c',
-      footerHowTo: '\uc0ac\uc6a9 \ubc29\ubc95',
-      footerSizeGuide: '\uc378\ub124\uc77c \ud06c\uae30 \uac00\uc774\ub4dc',
-      footerTips: '\uc378\ub124\uc77c \ud301',
-      footerPrivacy: '\uac1c\uc778\uc815\ubcf4\ucc98\ub9ac\ubc29\uce68',
-      footerTerms: '\uc774\uc6a9\uc57d\uad00',
-      counterToday: '\uc624\ub298',
-      counterTotal: '\uc804\uccb4',
-      footerCopy: '\u00a9 2026 ThumbPreview. All rights reserved.',
-      alertNoImage: '\uc378\ub124\uc77c\uc744 \uba3c\uc800 \uc5c5\ub85c\ub4dc\ud574\uc8fc\uc138\uc694.',
+      sectionTitle: 'YouTube 썸네일 미리보기',
+      sectionSubtitle: '썸네일을 업로드하면 실제 YouTube 레이아웃에서 어떻게 보이는지 확인할 수 있습니다. 모든 처리는 브라우저에서 이루어집니다.',
+      uploadText: '썸네일을 여기에 드래그 앤 드롭하세요',
+      uploadHint: '또는 클릭하여 찾아보기 · Ctrl+V로 붙여넣기 (PNG, JPG, WebP)',
+      videoTitleLabel: '동영상 제목',
+      channelNameLabel: '채널 이름',
+      videoTitlePlaceholder: '동영상 제목을 입력하세요',
+      channelNamePlaceholder: '채널 이름을 입력하세요',
+      videoTitleDefault: '멋진 동영상 제목을 입력하세요',
+      channelDefault: '내 채널',
+      generateBtn: '미리보기 생성',
+      resetBtn: '초기화',
+      mockupsHeading: 'YouTube에서의 내 썸네일',
+      mockupsSubheading: '시청자들이 다양한 YouTube 레이아웃에서 썸네일을 어떻게 보게 되는지 확인하세요.',
+      compareBtn: '라이트/다크 모드 비교',
+      exitCompare: '비교 종료',
+      downloadBtn: '미리보기 다운로드',
+      shareBtn: '공유',
+      copyLink: '링크 복사',
+      copied: '복사됨!',
+      desktopViews: '데스크톱 보기',
+      mobileViews: '모바일 보기',
+      otherLayouts: '기타 레이아웃',
+      homeFeedLight: '홈 피드 — 라이트',
+      homeFeedDark: '홈 피드 — 다크',
+      searchResults: '검색 결과',
+      sidebarSuggested: '사이드바 — 추천',
+      shortsCard: 'Shorts 스타일 카드',
+      searchDesc: '동영상의 설명 플레이스홀더입니다. YouTube 검색 결과에서 동영상이 어떻게 표시되는지 보여줍니다.',
+      viewsStats: '조회수 12.3만회 · 2일 전',
+      shortsViews: '조회수 12.3만회',
+      faqHeading: '자주 묻는 질문',
+      faqQ1: 'YouTube 썸네일을 업로드 전에 어떻게 미리보기 하나요?',
+      faqA1: 'ThumbPreview에 썸네일 이미지를 드래그 앤 드롭하거나 클릭하여 찾아보세요. 데스크톱 홈 피드, 모바일 피드, 검색 결과, 사이드바, Shorts 등 7가지 레이아웃에서 라이트/다크 모드로 바로 확인할 수 있습니다.',
+      faqQ2: 'ThumbPreview는 정말 무료인가요?',
+      faqA2: '네, 100% 무료입니다. 사용 제한, 워터마크, 유료 등급이 없습니다. 회원가입 없이 바로 사용할 수 있습니다.',
+      faqQ3: '내 썸네일은 안전한가요? 업로드되나요?',
+      faqA3: '썸네일은 브라우저를 떠나지 않습니다. ThumbPreview는 브라우저 API를 사용하여 모든 것을 로컬에서 처리합니다. 서버에 이미지가 전송되지 않습니다.',
+      faqQ4: '최적의 YouTube 썸네일 크기는?',
+      faqA4: 'YouTube는 1280x720 픽셀 (16:9 비율), 최소 너비 640픽셀을 권장합니다. 지원 형식은 JPG, PNG, WebP이며 YouTube 최대 파일 크기는 2MB입니다.',
+      faqQ5: '실제 동영상 제목으로 테스트할 수 있나요?',
+      faqA5: '네! 미리보기 영역 위의 입력란에 동영상 제목과 채널 이름을 입력하세요. 7가지 모든 모킹 레이아웃에 실시간으로 반영됩니다.',
+      faqQ6: 'ThumbPreview는 모바일에서도 작동하나요?',
+      faqA6: '네, ThumbPreview는 완전히 반응형이며 핸드폰, 태블릿, 데스크톱에서 모두 작동합니다. 파일 선택기 또는 클립보드 붙여넣기로 썸네일을 업로드할 수 있습니다.',
+      feedbackBtn: '피드백',
+      footerTagline: '무료 YouTube 썸네일 미리보기. 100% 클라이언트 처리. 이미지가 절대 서버로 전송되지 않습니다.',
+      footerHome: '홈',
+      footerAbout: '소개',
+      footerHowTo: '사용 방법',
+      footerSizeGuide: '썸네일 크기 가이드',
+      footerTips: '썸네일 팁',
+      footerPrivacy: '개인정보처리방침',
+      footerTerms: '이용약관',
+      counterToday: '오늘',
+      counterTotal: '전체',
+      footerCopy: '© 2026 ThumbPreview. All rights reserved.',
+      alertNoImage: '썸네일을 먼저 업로드해주세요.'
     },
 
     ja: {
-      pageTitle: '\u7121\u6599 YouTube \u30b5\u30e0\u30cd\u30a4\u30eb\u30d7\u30ec\u30d3\u30e5\u30fc\u30a2\u30fc \u2014 \u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u524d\u306b\u78ba\u8a8d | ThumbPreview',
-      metaDesc: 'YouTube\u30b5\u30e0\u30cd\u30a4\u30eb\u3092\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3057\u3066\u3001\u30c7\u30b9\u30af\u30c8\u30c3\u30d7\u3001\u30e2\u30d0\u30a4\u30eb\u3001\u30c0\u30fc\u30af\u30e2\u30fc\u30c9\u3067\u3069\u306e\u3088\u3046\u306b\u898b\u3048\u308b\u304b\u77ac\u6642\u306b\u30d7\u30ec\u30d3\u30e5\u30fc\u3002',
-      sectionTitle: 'YouTube\u30b5\u30e0\u30cd\u30a4\u30eb\u3092\u30d7\u30ec\u30d3\u30e5\u30fc',
-      sectionSubtitle: '\u30b5\u30e0\u30cd\u30a4\u30eb\u3092\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3059\u308b\u3068\u3001\u5b9f\u969b\u306eYouTube\u30ec\u30a4\u30a2\u30a6\u30c8\u3067\u3069\u3046\u898b\u3048\u308b\u304b\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002\u3059\u3079\u3066\u30d6\u30e9\u30a6\u30b6\u5185\u3067\u51e6\u7406\u3055\u308c\u307e\u3059\u3002',
-      uploadText: '\u30b5\u30e0\u30cd\u30a4\u30eb\u3092\u3053\u3053\u306b\u30c9\u30e9\u30c3\u30b0\uff06\u30c9\u30ed\u30c3\u30d7',
-      uploadHint: '\u307e\u305f\u306f\u30af\u30ea\u30c3\u30af\u3057\u3066\u53c2\u7167 \u00b7 Ctrl+V\u3067\u8cbc\u308a\u4ed8\u3051 (PNG, JPG, WebP)',
-      videoTitleLabel: '\u52d5\u753b\u30bf\u30a4\u30c8\u30eb',
-      channelNameLabel: '\u30c1\u30e3\u30f3\u30cd\u30eb\u540d',
-      videoTitlePlaceholder: '\u52d5\u753b\u30bf\u30a4\u30c8\u30eb\u3092\u5165\u529b',
-      channelNamePlaceholder: '\u30c1\u30e3\u30f3\u30cd\u30eb\u540d\u3092\u5165\u529b',
-      videoTitleDefault: '\u3042\u306a\u305f\u306e\u7d20\u6674\u3089\u3057\u3044\u52d5\u753b\u30bf\u30a4\u30c8\u30eb',
-      channelDefault: '\u3042\u306a\u305f\u306e\u30c1\u30e3\u30f3\u30cd\u30eb',
-      generateBtn: '\u30d7\u30ec\u30d3\u30e5\u30fc\u3092\u751f\u6210',
-      resetBtn: '\u30ea\u30bb\u30c3\u30c8',
-      mockupsHeading: 'YouTube\u3067\u306e\u30b5\u30e0\u30cd\u30a4\u30eb\u8868\u793a',
-      mockupsSubheading: '\u8996\u8074\u8005\u304c\u3055\u307e\u3056\u307e\u306aYouTube\u30ec\u30a4\u30a2\u30a6\u30c8\u3067\u30b5\u30e0\u30cd\u30a4\u30eb\u3092\u3069\u3046\u898b\u308b\u304b\u78ba\u8a8d\u3057\u307e\u3057\u3087\u3046\u3002',
-      compareBtn: '\u30e9\u30a4\u30c8/\u30c0\u30fc\u30af\u30e2\u30fc\u30c9\u3092\u6bd4\u8f03',
-      downloadBtn: '\u30d7\u30ec\u30d3\u30e5\u30fc\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9',
-      shareBtn: '\u5171\u6709',
-      copyLink: '\u30ea\u30f3\u30af\u3092\u30b3\u30d4\u30fc',
-      copied: '\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\uff01',
-      desktopViews: '\u30c7\u30b9\u30af\u30c8\u30c3\u30d7\u8868\u793a',
-      mobileViews: '\u30e2\u30d0\u30a4\u30eb\u8868\u793a',
-      otherLayouts: '\u305d\u306e\u4ed6\u306e\u30ec\u30a4\u30a2\u30a6\u30c8',
-      homeFeedLight: '\u30db\u30fc\u30e0\u30d5\u30a3\u30fc\u30c9 \u2014 \u30e9\u30a4\u30c8',
-      homeFeedDark: '\u30db\u30fc\u30e0\u30d5\u30a3\u30fc\u30c9 \u2014 \u30c0\u30fc\u30af',
-      searchResults: '\u691c\u7d22\u7d50\u679c',
-      sidebarSuggested: '\u30b5\u30a4\u30c9\u30d0\u30fc \u2014 \u304a\u3059\u3059\u3081',
-      shortsCard: 'Shorts\u30b9\u30bf\u30a4\u30eb\u30ab\u30fc\u30c9',
-      searchDesc: '\u52d5\u753b\u306e\u8aac\u660e\u30d7\u30ec\u30fc\u30b9\u30db\u30eb\u30c0\u30fc\u3067\u3059\u3002YouTube\u691c\u7d22\u7d50\u679c\u3067\u306e\u8868\u793a\u3092\u793a\u3057\u3066\u3044\u307e\u3059\u3002',
-      viewsStats: '12.3\u4e07\u56de\u8996\u8074 \u00b7 2\u65e5\u524d',
-      shortsViews: '12.3\u4e07\u56de\u8996\u8074',
-      faqHeading: '\u3088\u304f\u3042\u308b\u8cea\u554f',
-      faqQ1: 'YouTube\u30b5\u30e0\u30cd\u30a4\u30eb\u3092\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u524d\u306b\u30d7\u30ec\u30d3\u30e5\u30fc\u3059\u308b\u65b9\u6cd5\u306f\uff1f',
-      faqA1: 'ThumbPreview\u306b\u30b5\u30e0\u30cd\u30a4\u30eb\u753b\u50cf\u3092\u30c9\u30e9\u30c3\u30b0\uff06\u30c9\u30ed\u30c3\u30d7\u3059\u308b\u304b\u3001\u30af\u30ea\u30c3\u30af\u3057\u3066\u53c2\u7167\u3057\u3066\u304f\u3060\u3055\u3044\u30027\u3064\u306e\u30ec\u30a4\u30a2\u30a6\u30c8\u3067\u30e9\u30a4\u30c8/\u30c0\u30fc\u30af\u30e2\u30fc\u30c9\u4e21\u65b9\u3067\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002',
-      faqQ2: 'ThumbPreview\u306f\u672c\u5f53\u306b\u7121\u6599\u3067\u3059\u304b\uff1f',
-      faqA2: '\u306f\u3044\u3001100%\u7121\u6599\u3067\u3059\u3002\u5229\u7528\u5236\u9650\u3001\u30a6\u30a9\u30fc\u30bf\u30fc\u30de\u30fc\u30af\u3001\u6709\u6599\u30d7\u30e9\u30f3\u306f\u3042\u308a\u307e\u305b\u3093\u3002\u30a2\u30ab\u30a6\u30f3\u30c8\u767b\u9332\u4e0d\u8981\u3067\u3059\u3002',
-      faqQ3: '\u30b5\u30e0\u30cd\u30a4\u30eb\u306f\u5b89\u5168\u3067\u3059\u304b\uff1f\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3055\u308c\u307e\u3059\u304b\uff1f',
-      faqA3: '\u30b5\u30e0\u30cd\u30a4\u30eb\u306f\u30d6\u30e9\u30a6\u30b6\u3092\u96e2\u308c\u307e\u305b\u3093\u3002\u3059\u3079\u3066\u30ed\u30fc\u30ab\u30eb\u3067\u51e6\u7406\u3055\u308c\u3001\u30b5\u30fc\u30d0\u30fc\u306b\u306f\u4f55\u3082\u9001\u4fe1\u3055\u308c\u307e\u305b\u3093\u3002',
-      faqQ4: 'YouTube\u30b5\u30e0\u30cd\u30a4\u30eb\u306e\u6700\u9069\u30b5\u30a4\u30ba\u306f\uff1f',
-      faqA4: 'YouTube\u306f1280x720\u30d4\u30af\u30bb\u30eb\uff0816:9\u306e\u30a2\u30b9\u30da\u30af\u30c8\u6bd4\uff09\u3092\u63a8\u5968\u3057\u3066\u3044\u307e\u3059\u3002\u5bfe\u5fdc\u5f62\u5f0f\u306fJPG\u3001PNG\u3001WebP\u3067\u3001\u6700\u5927\u30d5\u30a1\u30a4\u30eb\u30b5\u30a4\u30ba\u306f2MB\u3067\u3059\u3002',
-      faqQ5: '\u5b9f\u969b\u306e\u52d5\u753b\u30bf\u30a4\u30c8\u30eb\u3067\u30c6\u30b9\u30c8\u3067\u304d\u307e\u3059\u304b\uff1f',
-      faqA5: '\u306f\u3044\uff01\u52d5\u753b\u30bf\u30a4\u30c8\u30eb\u3068\u30c1\u30e3\u30f3\u30cd\u30eb\u540d\u3092\u5165\u529b\u3059\u308b\u3068\u30017\u3064\u306e\u30e2\u30c3\u30af\u30a2\u30c3\u30d7\u5168\u3066\u306b\u30ea\u30a2\u30eb\u30bf\u30a4\u30e0\u3067\u53cd\u6620\u3055\u308c\u307e\u3059\u3002',
-      faqQ6: 'ThumbPreview\u306f\u30e2\u30d0\u30a4\u30eb\u3067\u3082\u4f7f\u3048\u307e\u3059\u304b\uff1f',
-      faqA6: '\u306f\u3044\u3001\u5b8c\u5168\u306b\u30ec\u30b9\u30dd\u30f3\u30b7\u30d6\u5bfe\u5fdc\u3067\u3001\u30b9\u30de\u30db\u3001\u30bf\u30d6\u30ec\u30c3\u30c8\u3001\u30c7\u30b9\u30af\u30c8\u30c3\u30d7\u3067\u52d5\u4f5c\u3057\u307e\u3059\u3002',
-      feedbackBtn: '\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af',
-      footerTagline: '\u7121\u6599YouTube\u30b5\u30e0\u30cd\u30a4\u30eb\u30d7\u30ec\u30d3\u30e5\u30fc\u30a2\u30fc\u3002100%\u30af\u30e9\u30a4\u30a2\u30f3\u30c8\u5074\u51e6\u7406\u3002\u753b\u50cf\u306f\u30d6\u30e9\u30a6\u30b6\u3092\u96e2\u308c\u307e\u305b\u3093\u3002',
-      footerHome: '\u30db\u30fc\u30e0',
-      footerAbout: '\u6982\u8981',
-      footerHowTo: '\u4f7f\u3044\u65b9',
-      footerSizeGuide: '\u30b5\u30e0\u30cd\u30a4\u30eb\u30b5\u30a4\u30ba\u30ac\u30a4\u30c9',
-      footerTips: '\u30b5\u30e0\u30cd\u30a4\u30eb\u30c6\u30a3\u30c3\u30d7\u30b9',
-      footerPrivacy: '\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc\u30dd\u30ea\u30b7\u30fc',
-      footerTerms: '\u5229\u7528\u898f\u7d04',
-      counterToday: '\u4eca\u65e5',
-      counterTotal: '\u5408\u8a08',
-      footerCopy: '\u00a9 2026 ThumbPreview. All rights reserved.',
-      alertNoImage: '\u30b5\u30e0\u30cd\u30a4\u30eb\u3092\u5148\u306b\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3057\u3066\u304f\u3060\u3055\u3044\u3002',
+      sectionTitle: 'YouTubeサムネイルをプレビュー',
+      sectionSubtitle: 'サムネイルをアップロードすると、実際のYouTubeレイアウトでどう見えるか確認できます。すべてブラウザ内で処理されます。',
+      uploadText: 'サムネイルをここにドラッグ＆ドロップ',
+      uploadHint: 'またはクリックして参照 · Ctrl+Vで貼り付け (PNG, JPG, WebP)',
+      videoTitleLabel: '動画タイトル',
+      channelNameLabel: 'チャンネル名',
+      videoTitlePlaceholder: '動画タイトルを入力',
+      channelNamePlaceholder: 'チャンネル名を入力',
+      videoTitleDefault: 'あなたの素晴らしい動画タイトル',
+      channelDefault: 'あなたのチャンネル',
+      generateBtn: 'プレビューを生成',
+      resetBtn: 'リセット',
+      mockupsHeading: 'YouTubeでのサムネイル表示',
+      mockupsSubheading: '視聴者がさまざまなYouTubeレイアウトでサムネイルをどう見るか確認しましょう。',
+      compareBtn: 'ライト/ダークモードを比較',
+      exitCompare: '比較を終了',
+      downloadBtn: 'プレビューをダウンロード',
+      shareBtn: '共有',
+      copyLink: 'リンクをコピー',
+      copied: 'コピーしました！',
+      desktopViews: 'デスクトップ表示',
+      mobileViews: 'モバイル表示',
+      otherLayouts: 'その他のレイアウト',
+      homeFeedLight: 'ホームフィード — ライト',
+      homeFeedDark: 'ホームフィード — ダーク',
+      searchResults: '検索結果',
+      sidebarSuggested: 'サイドバー — おすすめ',
+      shortsCard: 'Shortsスタイルカード',
+      viewsStats: '12.3万回視聴 · 2日前',
+      shortsViews: '12.3万回視聴',
+      faqHeading: 'よくある質問',
+      faqQ1: 'YouTubeサムネイルをアップロード前にプレビューする方法は？',
+      faqA1: 'ThumbPreviewにサムネイル画像をドラッグ＆ドロップするか、クリックして参照してください。7つのレイアウトでライト/ダークモード両方で確認できます。',
+      faqQ2: 'ThumbPreviewは本当に無料ですか？',
+      faqA2: 'はい、100%無料です。利用制限、ウォーターマーク、有料プランはありません。アカウント登録不要です。',
+      faqQ3: 'サムネイルは安全ですか？アップロードされますか？',
+      faqA3: 'サムネイルはブラウザを離れません。すべてローカルで処理され、サーバーには何も送信されません。',
+      faqQ4: 'YouTubeサムネイルの最適サイズは？',
+      faqA4: 'YouTubeは1280x720ピクセル（16:9のアスペクト比）を推奨しています。対応形式はJPG、PNG、WebPで、最大ファイルサイズは2MBです。',
+      faqQ5: '実際の動画タイトルでテストできますか？',
+      faqA5: 'はい！動画タイトルとチャンネル名を入力すると、7つのモックアップ全てにリアルタイムで反映されます。',
+      faqQ6: 'ThumbPreviewはモバイルでも使えますか？',
+      faqA6: 'はい、完全にレスポンシブ対応で、スマホ、タブレット、デスクトップで動作します。',
+      feedbackBtn: 'フィードバック',
+      footerHome: 'ホーム',
+      footerAbout: '概要',
+      footerHowTo: '使い方',
+      footerSizeGuide: 'サムネイルサイズガイド',
+      footerTips: 'サムネイルティップス',
+      footerPrivacy: 'プライバシーポリシー',
+      footerTerms: '利用規約',
+      counterToday: '今日',
+      counterTotal: '合計',
+      alertNoImage: 'サムネイルを先にアップロードしてください。'
     },
 
     zh: {
-      pageTitle: '\u514d\u8d39 YouTube \u7f29\u7565\u56fe\u9884\u89c8\u5668 \u2014 \u4e0a\u4f20\u524d\u67e5\u770b\u6548\u679c | ThumbPreview',
-      metaDesc: '\u4e0a\u4f20 YouTube \u7f29\u7565\u56fe\uff0c\u5373\u65f6\u9884\u89c8\u5728\u684c\u9762\u3001\u79fb\u52a8\u7aef\u3001\u6697\u9ed1\u6a21\u5f0f\u3001\u641c\u7d22\u7ed3\u679c\u548c\u4fa7\u8fb9\u680f\u4e2d\u7684\u6548\u679c\u3002',
-      sectionTitle: '\u9884\u89c8\u60a8\u7684 YouTube \u7f29\u7565\u56fe',
-      sectionSubtitle: '\u4e0a\u4f20\u7f29\u7565\u56fe\uff0c\u67e5\u770b\u5b83\u5728\u771f\u5b9e YouTube \u5e03\u5c40\u4e2d\u7684\u6548\u679c \u2014 \u5168\u90e8\u5728\u6d4f\u89c8\u5668\u4e2d\u5904\u7406\uff0c\u4e0d\u4e0a\u4f20\u5230\u4efb\u4f55\u670d\u52a1\u5668\u3002',
-      uploadText: '\u5c06\u7f29\u7565\u56fe\u62d6\u653e\u5230\u8fd9\u91cc',
-      uploadHint: '\u6216\u70b9\u51fb\u6d4f\u89c8 \u00b7 Ctrl+V \u7c98\u8d34 (PNG, JPG, WebP)',
-      videoTitleLabel: '\u89c6\u9891\u6807\u9898',
-      channelNameLabel: '\u9891\u9053\u540d\u79f0',
-      videoTitlePlaceholder: '\u8f93\u5165\u89c6\u9891\u6807\u9898',
-      channelNamePlaceholder: '\u8f93\u5165\u9891\u9053\u540d\u79f0',
-      videoTitleDefault: '\u60a8\u7684\u7cbe\u5f69\u89c6\u9891\u6807\u9898',
-      channelDefault: '\u60a8\u7684\u9891\u9053',
-      generateBtn: '\u751f\u6210\u9884\u89c8',
-      resetBtn: '\u91cd\u7f6e',
-      mockupsHeading: '\u60a8\u7684\u7f29\u7565\u56fe\u5728 YouTube \u4e0a\u7684\u6548\u679c',
-      mockupsSubheading: '\u67e5\u770b\u89c2\u4f17\u5728\u4e0d\u540c YouTube \u5e03\u5c40\u4e2d\u5982\u4f55\u770b\u5230\u60a8\u7684\u7f29\u7565\u56fe\u3002',
-      compareBtn: '\u5bf9\u6bd4\u4eae\u8272/\u6697\u8272\u6a21\u5f0f',
-      downloadBtn: '\u4e0b\u8f7d\u9884\u89c8',
-      shareBtn: '\u5206\u4eab',
-      copyLink: '\u590d\u5236\u94fe\u63a5',
-      copied: '\u5df2\u590d\u5236\uff01',
-      desktopViews: '\u684c\u9762\u89c6\u56fe',
-      mobileViews: '\u79fb\u52a8\u89c6\u56fe',
-      otherLayouts: '\u5176\u4ed6\u5e03\u5c40',
-      homeFeedLight: '\u9996\u9875\u4fe1\u606f\u6d41 \u2014 \u4eae\u8272',
-      homeFeedDark: '\u9996\u9875\u4fe1\u606f\u6d41 \u2014 \u6697\u8272',
-      searchResults: '\u641c\u7d22\u7ed3\u679c',
-      sidebarSuggested: '\u4fa7\u8fb9\u680f \u2014 \u63a8\u8350',
-      shortsCard: 'Shorts\u98ce\u683c\u5361\u7247',
-      searchDesc: '\u8fd9\u662f\u89c6\u9891\u7684\u5360\u4f4d\u63cf\u8ff0\u3002\u5b83\u5c55\u793a\u4e86\u60a8\u7684\u89c6\u9891\u5728 YouTube \u641c\u7d22\u7ed3\u679c\u4e2d\u7684\u663e\u793a\u6548\u679c\u3002',
-      viewsStats: '12.3\u4e07\u6b21\u89c2\u770b \u00b7 2\u5929\u524d',
-      shortsViews: '12.3\u4e07\u6b21\u89c2\u770b',
-      faqHeading: '\u5e38\u89c1\u95ee\u9898',
-      faqQ1: '\u5982\u4f55\u5728\u4e0a\u4f20\u524d\u9884\u89c8 YouTube \u7f29\u7565\u56fe\uff1f',
-      faqA1: '\u5c06\u7f29\u7565\u56fe\u56fe\u7247\u62d6\u653e\u5230 ThumbPreview\uff0c\u6216\u70b9\u51fb\u6d4f\u89c8\u3002\u60a8\u53ef\u4ee5\u5728 7 \u79cd\u5e03\u5c40\u4e2d\u5373\u65f6\u67e5\u770b\u6548\u679c\uff0c\u5305\u62ec\u4eae\u8272\u548c\u6697\u8272\u6a21\u5f0f\u3002\u65e0\u9700\u6ce8\u518c\u3002',
-      faqQ2: 'ThumbPreview \u771f\u7684\u514d\u8d39\u5417\uff1f',
-      faqA2: '\u662f\u7684\uff0c100% \u514d\u8d39\u3002\u6ca1\u6709\u4f7f\u7528\u9650\u5236\u3001\u6c34\u5370\u6216\u4ed8\u8d39\u7b49\u7ea7\u3002\u65e0\u9700\u6ce8\u518c\u8d26\u53f7\u3002',
-      faqQ3: '\u6211\u7684\u7f29\u7565\u56fe\u5b89\u5168\u5417\uff1f\u4f1a\u88ab\u4e0a\u4f20\u5417\uff1f',
-      faqA3: '\u60a8\u7684\u7f29\u7565\u56fe\u4e0d\u4f1a\u79bb\u5f00\u6d4f\u89c8\u5668\u3002ThumbPreview \u4f7f\u7528\u6d4f\u89c8\u5668 API \u5728\u672c\u5730\u5904\u7406\u6240\u6709\u5185\u5bb9\u3002\u4e0d\u4f1a\u5411\u670d\u52a1\u5668\u53d1\u9001\u4efb\u4f55\u56fe\u7247\u3002',
-      faqQ4: 'YouTube \u7f29\u7565\u56fe\u7684\u6700\u4f73\u5c3a\u5bf8\u662f\u591a\u5c11\uff1f',
-      faqA4: 'YouTube \u5efa\u8bae 1280x720 \u50cf\u7d20\uff0816:9 \u6bd4\u4f8b\uff09\uff0c\u6700\u5c0f\u5bbd\u5ea6 640 \u50cf\u7d20\u3002\u652f\u6301\u683c\u5f0f\uff1aJPG\u3001PNG\u3001WebP\uff0c\u6700\u5927\u6587\u4ef6\u5927\u5c0f 2MB\u3002',
-      faqQ5: '\u53ef\u4ee5\u7528\u5b9e\u9645\u89c6\u9891\u6807\u9898\u6d4b\u8bd5\u5417\uff1f',
-      faqA5: '\u53ef\u4ee5\uff01\u8f93\u5165\u89c6\u9891\u6807\u9898\u548c\u9891\u9053\u540d\u79f0\uff0c\u5b83\u4eec\u4f1a\u5b9e\u65f6\u53cd\u6620\u5728\u6240\u6709 7 \u4e2a\u6a21\u62df\u5e03\u5c40\u4e2d\u3002',
-      faqQ6: 'ThumbPreview \u5728\u624b\u673a\u4e0a\u80fd\u7528\u5417\uff1f',
-      faqA6: '\u53ef\u4ee5\uff0cThumbPreview \u5b8c\u5168\u54cd\u5e94\u5f0f\uff0c\u652f\u6301\u624b\u673a\u3001\u5e73\u677f\u548c\u684c\u9762\u8bbe\u5907\u3002',
-      feedbackBtn: '\u53cd\u9988',
-      footerTagline: '\u514d\u8d39 YouTube \u7f29\u7565\u56fe\u9884\u89c8\u5668\u3002100% \u5ba2\u6237\u7aef\u5904\u7406\u3002\u60a8\u7684\u56fe\u7247\u4e0d\u4f1a\u79bb\u5f00\u6d4f\u89c8\u5668\u3002',
-      footerHome: '\u9996\u9875',
-      footerAbout: '\u5173\u4e8e',
-      footerHowTo: '\u4f7f\u7528\u65b9\u6cd5',
-      footerSizeGuide: '\u7f29\u7565\u56fe\u5c3a\u5bf8\u6307\u5357',
-      footerTips: '\u7f29\u7565\u56fe\u6280\u5de7',
-      footerPrivacy: '\u9690\u79c1\u653f\u7b56',
-      footerTerms: '\u670d\u52a1\u6761\u6b3e',
-      counterToday: '\u4eca\u65e5',
-      counterTotal: '\u603b\u8ba1',
-      footerCopy: '\u00a9 2026 ThumbPreview. All rights reserved.',
-      alertNoImage: '\u8bf7\u5148\u4e0a\u4f20\u7f29\u7565\u56fe\u3002',
+      sectionTitle: '预览您的 YouTube 缩略图',
+      sectionSubtitle: '上传缩略图，查看它在真实 YouTube 布局中的效果 — 全部在浏览器中处理，不上传到任何服务器。',
+      uploadText: '将缩略图拖放到这里',
+      uploadHint: '或点击浏览 · Ctrl+V 粘贴 (PNG, JPG, WebP)',
+      videoTitleLabel: '视频标题',
+      channelNameLabel: '频道名称',
+      videoTitlePlaceholder: '输入视频标题',
+      channelNamePlaceholder: '输入频道名称',
+      videoTitleDefault: '您的精彩视频标题',
+      channelDefault: '您的频道',
+      generateBtn: '生成预览',
+      resetBtn: '重置',
+      mockupsHeading: '您的缩略图在 YouTube 上的效果',
+      mockupsSubheading: '查看观众在不同 YouTube 布局中如何看到您的缩略图。',
+      compareBtn: '对比亮色/暗色模式',
+      exitCompare: '退出对比',
+      downloadBtn: '下载预览',
+      shareBtn: '分享',
+      copyLink: '复制链接',
+      copied: '已复制！',
+      desktopViews: '桌面视图',
+      mobileViews: '移动视图',
+      otherLayouts: '其他布局',
+      homeFeedLight: '首页信息流 — 亮色',
+      homeFeedDark: '首页信息流 — 暗色',
+      searchResults: '搜索结果',
+      sidebarSuggested: '侧边栏 — 推荐',
+      shortsCard: 'Shorts风格卡片',
+      viewsStats: '12.3万次观看 · 2天前',
+      shortsViews: '12.3万次观看',
+      faqHeading: '常见问题',
+      faqQ1: '如何在上传前预览 YouTube 缩略图？',
+      faqA1: '将缩略图图片拖放到 ThumbPreview，或点击浏览。您可以在 7 种布局中即时查看效果，包括亮色和暗色模式。无需注册。',
+      faqQ2: 'ThumbPreview 真的免费吗？',
+      faqA2: '是的，100% 免费。没有使用限制、水印或付费等级。无需注册账号。',
+      faqQ3: '我的缩略图安全吗？会被上传吗？',
+      faqA3: '您的缩略图不会离开浏览器。ThumbPreview 使用浏览器 API 在本地处理所有内容。不会向服务器发送任何图片。',
+      faqQ4: 'YouTube 缩略图的最佳尺寸是多少？',
+      faqA4: 'YouTube 建议 1280x720 像素（16:9 比例），最小宽度 640 像素。支持格式：JPG、PNG、WebP，最大文件大小 2MB。',
+      faqQ5: '可以用实际视频标题测试吗？',
+      faqA5: '可以！输入视频标题和频道名称，它们会实时反映在所有 7 个模拟布局中。',
+      faqQ6: 'ThumbPreview 在手机上能用吗？',
+      faqA6: '可以，ThumbPreview 完全响应式，支持手机、平板和桌面设备。',
+      feedbackBtn: '反馈',
+      footerHome: '首页',
+      footerAbout: '关于',
+      footerHowTo: '使用方法',
+      footerSizeGuide: '缩略图尺寸指南',
+      footerTips: '缩略图技巧',
+      footerPrivacy: '隐私政策',
+      footerTerms: '服务条款',
+      counterToday: '今日',
+      counterTotal: '总计',
+      alertNoImage: '请先上传缩略图。'
     },
 
     es: {
-      pageTitle: 'Previsualizador de Miniaturas de YouTube Gratis \u2014 Prueba tu Miniatura | ThumbPreview',
       sectionTitle: 'Previsualiza tu Miniatura de YouTube',
-      sectionSubtitle: 'Sube una miniatura y mira c\u00f3mo se ve en los dise\u00f1os reales de YouTube \u2014 todo procesado en tu navegador.',
-      uploadText: 'Arrastra y suelta tu miniatura aqu\u00ed',
-      uploadHint: 'o haz clic para buscar \u00b7 Ctrl+V para pegar (PNG, JPG, WebP)',
-      videoTitleLabel: 'T\u00edtulo del video',
+      sectionSubtitle: 'Sube una miniatura y mira cómo se ve en los diseños reales de YouTube — todo procesado en tu navegador.',
+      uploadText: 'Arrastra y suelta tu miniatura aquí',
+      uploadHint: 'o haz clic para buscar · Ctrl+V para pegar (PNG, JPG, WebP)',
+      videoTitleLabel: 'Título del video',
       channelNameLabel: 'Nombre del canal',
-      videoTitlePlaceholder: 'Ingresa el t\u00edtulo del video',
+      videoTitlePlaceholder: 'Ingresa el título del video',
       channelNamePlaceholder: 'Ingresa el nombre del canal',
-      videoTitleDefault: 'Tu Incre\u00edble T\u00edtulo de Video Aqu\u00ed',
+      videoTitleDefault: 'Tu Increíble Título de Video Aquí',
       channelDefault: 'Tu Canal',
       generateBtn: 'Generar Previsualizaciones',
       resetBtn: 'Reiniciar',
       mockupsHeading: 'Tu Miniatura en YouTube',
-      mockupsSubheading: 'Mira c\u00f3mo los espectadores ver\u00e1n tu miniatura en diferentes dise\u00f1os de YouTube.',
+      mockupsSubheading: 'Mira cómo los espectadores verán tu miniatura en diferentes diseños de YouTube.',
       compareBtn: 'Comparar Claro vs Oscuro',
+      exitCompare: 'Salir de Comparación',
       downloadBtn: 'Descargar Previsualizaciones',
       shareBtn: 'Compartir',
       copyLink: 'Copiar Enlace',
-      copied: '\u00a1Copiado!',
+      copied: '¡Copiado!',
       desktopViews: 'Vistas de Escritorio',
-      mobileViews: 'Vistas M\u00f3viles',
-      otherLayouts: 'Otros Dise\u00f1os',
-      homeFeedLight: 'Inicio \u2014 Claro',
-      homeFeedDark: 'Inicio \u2014 Oscuro',
-      searchResults: 'Resultados de B\u00fasqueda',
-      sidebarSuggested: 'Barra Lateral \u2014 Sugeridos',
+      mobileViews: 'Vistas Móviles',
+      otherLayouts: 'Otros Diseños',
+      homeFeedLight: 'Inicio — Claro',
+      homeFeedDark: 'Inicio — Oscuro',
+      searchResults: 'Resultados de Búsqueda',
+      sidebarSuggested: 'Barra Lateral — Sugeridos',
       shortsCard: 'Tarjeta Estilo Shorts',
-      searchDesc: 'Esta es una descripci\u00f3n de marcador del video. Muestra c\u00f3mo aparece tu video en los resultados de b\u00fasqueda de YouTube.',
-      viewsStats: '123K vistas \u00b7 hace 2 d\u00edas',
-      shortsViews: '123K vistas',
+      viewsStats: '123K vistas · hace 2 días',
       faqHeading: 'Preguntas Frecuentes',
-      faqQ1: '\u00bfC\u00f3mo previsualizo mi miniatura de YouTube antes de subirla?',
-      faqA1: 'Arrastra y suelta tu imagen de miniatura en ThumbPreview, o haz clic para buscar. Ver\u00e1s instant\u00e1neamente c\u00f3mo se ve en 7 dise\u00f1os reales de YouTube.',
-      faqQ2: '\u00bfThumbPreview es realmente gratis?',
-      faqA2: 'S\u00ed, 100% gratis sin l\u00edmites de uso, marcas de agua ni planes premium. No se requiere registro.',
-      faqQ3: '\u00bfMis miniaturas est\u00e1n seguras?',
-      faqA3: 'Tus miniaturas nunca salen de tu navegador. Todo se procesa localmente. No se env\u00edan im\u00e1genes a ning\u00fan servidor.',
-      faqQ4: '\u00bfCu\u00e1l es el mejor tama\u00f1o de miniatura de YouTube?',
-      faqA4: 'YouTube recomienda 1280x720 p\u00edxeles (proporci\u00f3n 16:9) con un ancho m\u00ednimo de 640 p\u00edxeles. Formatos compatibles: JPG, PNG, WebP.',
-      faqQ5: '\u00bfPuedo probar con mi t\u00edtulo real?',
-      faqA5: '\u00a1S\u00ed! Ingresa tu t\u00edtulo y nombre de canal. Se actualizan en tiempo real en los 7 dise\u00f1os.',
-      faqQ6: '\u00bfFunciona en m\u00f3vil?',
-      faqA6: 'S\u00ed, ThumbPreview es totalmente responsivo y funciona en tel\u00e9fonos, tablets y escritorios.',
+      faqQ1: '¿Cómo previsualizo mi miniatura de YouTube antes de subirla?',
+      faqA1: 'Arrastra y suelta tu imagen de miniatura en ThumbPreview. Verás instantáneamente cómo se ve en 7 diseños reales de YouTube.',
+      faqQ2: '¿ThumbPreview es realmente gratis?',
+      faqA2: 'Sí, 100% gratis sin límites de uso ni marcas de agua. No se requiere registro.',
+      faqQ3: '¿Mis miniaturas están seguras?',
+      faqA3: 'Tus miniaturas nunca salen de tu navegador. Todo se procesa localmente.',
+      faqQ4: '¿Cuál es el mejor tamaño de miniatura?',
+      faqA4: 'YouTube recomienda 1280x720 píxeles (proporción 16:9). Formatos compatibles: JPG, PNG, WebP.',
+      faqQ5: '¿Puedo probar con mi título real?',
+      faqA5: '¡Sí! Ingresa tu título y nombre de canal. Se actualizan en tiempo real.',
+      faqQ6: '¿Funciona en móvil?',
+      faqA6: 'Sí, ThumbPreview es totalmente responsivo.',
       feedbackBtn: 'Comentarios',
-      footerTagline: 'Previsualizador de Miniaturas de YouTube Gratis. 100% en el cliente. Tus im\u00e1genes nunca salen del navegador.',
       footerHome: 'Inicio',
       footerAbout: 'Acerca de',
-      footerHowTo: 'C\u00f3mo Usar',
-      footerSizeGuide: 'Gu\u00eda de Tama\u00f1os',
-      footerTips: 'Consejos de Miniaturas',
-      footerPrivacy: 'Pol\u00edtica de Privacidad',
-      footerTerms: 'T\u00e9rminos de Servicio',
+      footerHowTo: 'Cómo Usar',
+      footerSizeGuide: 'Guía de Tamaños',
+      footerTips: 'Consejos',
+      footerPrivacy: 'Privacidad',
+      footerTerms: 'Términos',
       counterToday: 'Hoy',
       counterTotal: 'Total',
-      footerCopy: '\u00a9 2026 ThumbPreview. Todos los derechos reservados.',
-      alertNoImage: 'Por favor sube una miniatura primero.',
+      alertNoImage: 'Por favor sube una miniatura primero.'
     },
 
     pt: {
-      pageTitle: 'Previsualizador de Miniaturas do YouTube Gr\u00e1tis \u2014 Teste sua Miniatura | ThumbPreview',
-      sectionTitle: 'Pr\u00e9-visualize sua Miniatura do YouTube',
-      sectionSubtitle: 'Envie uma miniatura e veja como ela fica nos layouts reais do YouTube \u2014 tudo processado no seu navegador.',
+      sectionTitle: 'Pré-visualize sua Miniatura do YouTube',
+      sectionSubtitle: 'Envie uma miniatura e veja como ela fica nos layouts reais do YouTube — tudo processado no seu navegador.',
       uploadText: 'Arraste e solte sua miniatura aqui',
-      uploadHint: 'ou clique para procurar \u00b7 Ctrl+V para colar (PNG, JPG, WebP)',
-      videoTitleLabel: 'T\u00edtulo do V\u00eddeo',
+      uploadHint: 'ou clique para procurar · Ctrl+V para colar (PNG, JPG, WebP)',
+      videoTitleLabel: 'Título do Vídeo',
       channelNameLabel: 'Nome do Canal',
-      videoTitlePlaceholder: 'Digite o t\u00edtulo do v\u00eddeo',
-      channelNamePlaceholder: 'Digite o nome do canal',
-      videoTitleDefault: 'Seu T\u00edtulo Incr\u00edvel de V\u00eddeo Aqui',
-      channelDefault: 'Seu Canal',
-      generateBtn: 'Gerar Pr\u00e9-visualiza\u00e7\u00f5es',
+      generateBtn: 'Gerar Pré-visualizações',
       resetBtn: 'Redefinir',
-      mockupsHeading: 'Sua Miniatura no YouTube',
-      mockupsSubheading: 'Veja como os espectadores ver\u00e3o sua miniatura em diferentes layouts do YouTube.',
       compareBtn: 'Comparar Claro vs Escuro',
-      downloadBtn: 'Baixar Pr\u00e9-visualiza\u00e7\u00f5es',
+      exitCompare: 'Sair da Comparação',
+      downloadBtn: 'Baixar Pré-visualizações',
       shareBtn: 'Compartilhar',
       copyLink: 'Copiar Link',
       copied: 'Copiado!',
-      desktopViews: 'Vis\u00f5es Desktop',
-      mobileViews: 'Vis\u00f5es Mobile',
+      desktopViews: 'Visões Desktop',
+      mobileViews: 'Visões Mobile',
       otherLayouts: 'Outros Layouts',
-      homeFeedLight: 'Feed Inicial \u2014 Claro',
-      homeFeedDark: 'Feed Inicial \u2014 Escuro',
-      searchResults: 'Resultados de Busca',
-      sidebarSuggested: 'Barra Lateral \u2014 Sugeridos',
-      shortsCard: 'Cart\u00e3o Estilo Shorts',
       faqHeading: 'Perguntas Frequentes',
       feedbackBtn: 'Feedback',
-      footerHome: 'In\u00edcio',
-      footerAbout: 'Sobre',
-      footerHowTo: 'Como Usar',
-      footerSizeGuide: 'Guia de Tamanhos',
-      footerTips: 'Dicas de Miniaturas',
-      footerPrivacy: 'Pol\u00edtica de Privacidade',
-      footerTerms: 'Termos de Servi\u00e7o',
-      counterToday: 'Hoje',
-      counterTotal: 'Total',
-      alertNoImage: 'Por favor, envie uma miniatura primeiro.',
+      footerHome: 'Início',
+      alertNoImage: 'Por favor, envie uma miniatura primeiro.'
     },
 
     fr: {
-      pageTitle: 'Aper\u00e7u Gratuit de Miniatures YouTube \u2014 Testez votre Miniature | ThumbPreview',
-      sectionTitle: 'Pr\u00e9visualisez votre Miniature YouTube',
-      sectionSubtitle: 'T\u00e9l\u00e9chargez une miniature et voyez \u00e0 quoi elle ressemble sur les vrais layouts YouTube \u2014 tout est trait\u00e9 dans votre navigateur.',
-      uploadText: 'Glissez-d\u00e9posez votre miniature ici',
-      uploadHint: 'ou cliquez pour parcourir \u00b7 Ctrl+V pour coller (PNG, JPG, WebP)',
-      videoTitleLabel: 'Titre de la vid\u00e9o',
-      channelNameLabel: 'Nom de la cha\u00eene',
-      videoTitlePlaceholder: 'Entrez le titre de la vid\u00e9o',
-      channelNamePlaceholder: 'Entrez le nom de la cha\u00eene',
-      videoTitleDefault: 'Votre Super Titre de Vid\u00e9o Ici',
-      channelDefault: 'Votre Cha\u00eene',
-      generateBtn: 'G\u00e9n\u00e9rer les Aper\u00e7us',
-      resetBtn: 'R\u00e9initialiser',
-      mockupsHeading: 'Votre Miniature sur YouTube',
-      mockupsSubheading: 'Voyez comment les spectateurs verront votre miniature sur diff\u00e9rents layouts YouTube.',
+      sectionTitle: 'Prévisualisez votre Miniature YouTube',
+      sectionSubtitle: 'Téléchargez une miniature et voyez à quoi elle ressemble sur les vrais layouts YouTube — tout est traité dans votre navigateur.',
+      uploadText: 'Glissez-déposez votre miniature ici',
+      uploadHint: 'ou cliquez pour parcourir · Ctrl+V pour coller (PNG, JPG, WebP)',
+      videoTitleLabel: 'Titre de la vidéo',
+      channelNameLabel: 'Nom de la chaîne',
+      generateBtn: 'Générer les Aperçus',
+      resetBtn: 'Réinitialiser',
       compareBtn: 'Comparer Clair vs Sombre',
-      downloadBtn: 'T\u00e9l\u00e9charger les Aper\u00e7us',
+      exitCompare: 'Quitter la Comparaison',
+      downloadBtn: 'Télécharger les Aperçus',
       shareBtn: 'Partager',
       copyLink: 'Copier le Lien',
-      copied: 'Copi\u00e9 !',
+      copied: 'Copié !',
       desktopViews: 'Vues Bureau',
       mobileViews: 'Vues Mobile',
       otherLayouts: 'Autres Layouts',
-      homeFeedLight: 'Accueil \u2014 Clair',
-      homeFeedDark: 'Accueil \u2014 Sombre',
-      searchResults: 'R\u00e9sultats de Recherche',
-      sidebarSuggested: 'Barre Lat\u00e9rale \u2014 Sugg\u00e9r\u00e9s',
-      shortsCard: 'Carte Style Shorts',
-      faqHeading: 'Questions Fr\u00e9quentes',
+      faqHeading: 'Questions Fréquentes',
       feedbackBtn: 'Commentaires',
       footerHome: 'Accueil',
-      footerAbout: '\u00c0 Propos',
-      footerHowTo: 'Comment Utiliser',
-      footerSizeGuide: 'Guide des Tailles',
-      footerTips: 'Conseils Miniatures',
-      footerPrivacy: 'Politique de Confidentialit\u00e9',
-      footerTerms: 'Conditions d\'Utilisation',
-      counterToday: 'Aujourd\'hui',
-      counterTotal: 'Total',
-      alertNoImage: 'Veuillez d\'abord t\u00e9l\u00e9charger une miniature.',
+      alertNoImage: 'Veuillez d\'abord télécharger une miniature.'
     },
 
     de: {
-      pageTitle: 'Kostenloser YouTube-Thumbnail-Vorschau \u2014 Testen Sie Ihr Thumbnail | ThumbPreview',
       sectionTitle: 'Vorschau Ihres YouTube-Thumbnails',
-      sectionSubtitle: 'Laden Sie ein Thumbnail hoch und sehen Sie, wie es in echten YouTube-Layouts aussieht \u2014 alles wird in Ihrem Browser verarbeitet.',
+      sectionSubtitle: 'Laden Sie ein Thumbnail hoch und sehen Sie, wie es in echten YouTube-Layouts aussieht — alles wird in Ihrem Browser verarbeitet.',
       uploadText: 'Ziehen Sie Ihr Thumbnail hierher',
-      uploadHint: 'oder klicken zum Durchsuchen \u00b7 Strg+V zum Einf\u00fcgen (PNG, JPG, WebP)',
+      uploadHint: 'oder klicken zum Durchsuchen · Strg+V zum Einfügen (PNG, JPG, WebP)',
       videoTitleLabel: 'Videotitel',
       channelNameLabel: 'Kanalname',
-      videoTitlePlaceholder: 'Videotitel eingeben',
-      channelNamePlaceholder: 'Kanalname eingeben',
-      videoTitleDefault: 'Ihr Toller Videotitel Hier',
-      channelDefault: 'Ihr Kanal',
       generateBtn: 'Vorschau Erstellen',
-      resetBtn: 'Zur\u00fccksetzen',
-      mockupsHeading: 'Ihr Thumbnail auf YouTube',
-      mockupsSubheading: 'Sehen Sie, wie Zuschauer Ihr Thumbnail in verschiedenen YouTube-Layouts sehen werden.',
+      resetBtn: 'Zurücksetzen',
       compareBtn: 'Hell/Dunkel Vergleichen',
+      exitCompare: 'Vergleich Beenden',
       downloadBtn: 'Vorschau Herunterladen',
       shareBtn: 'Teilen',
       copyLink: 'Link Kopieren',
@@ -434,52 +364,37 @@
       desktopViews: 'Desktop-Ansichten',
       mobileViews: 'Mobile Ansichten',
       otherLayouts: 'Andere Layouts',
-      homeFeedLight: 'Startseite \u2014 Hell',
-      homeFeedDark: 'Startseite \u2014 Dunkel',
-      searchResults: 'Suchergebnisse',
-      sidebarSuggested: 'Seitenleiste \u2014 Vorschl\u00e4ge',
-      shortsCard: 'Shorts-Karte',
-      faqHeading: 'H\u00e4ufig Gestellte Fragen',
+      faqHeading: 'Häufig Gestellte Fragen',
       feedbackBtn: 'Feedback',
       footerHome: 'Startseite',
-      footerAbout: '\u00dcber Uns',
-      footerHowTo: 'Anleitung',
-      footerSizeGuide: 'Gr\u00f6\u00dfenleitfaden',
-      footerTips: 'Thumbnail-Tipps',
-      footerPrivacy: 'Datenschutz',
-      footerTerms: 'Nutzungsbedingungen',
-      counterToday: 'Heute',
-      counterTotal: 'Gesamt',
-      alertNoImage: 'Bitte laden Sie zuerst ein Thumbnail hoch.',
+      alertNoImage: 'Bitte laden Sie zuerst ein Thumbnail hoch.'
     },
 
     hi: {
-      sectionTitle: '\u0905\u092a\u0928\u093e YouTube \u0925\u092e\u094d\u092c\u0928\u0947\u0932 \u092a\u094d\u0930\u0940\u0935\u094d\u092f\u0942 \u0915\u0930\u0947\u0902',
-      sectionSubtitle: '\u0925\u092e\u094d\u092c\u0928\u0947\u0932 \u0905\u092a\u0932\u094b\u0921 \u0915\u0930\u0947\u0902 \u0914\u0930 \u0926\u0947\u0916\u0947\u0902 \u0915\u093f YouTube \u092a\u0930 \u0915\u0948\u0938\u093e \u0926\u093f\u0916\u0947\u0917\u093e \u2014 \u0938\u092c \u0906\u092a\u0915\u0947 \u092c\u094d\u0930\u093e\u0909\u091c\u093c\u0930 \u092e\u0947\u0902 \u092a\u094d\u0930\u094b\u0938\u0947\u0938 \u0939\u094b\u0924\u093e \u0939\u0948\u0964',
-      uploadText: '\u0905\u092a\u0928\u093e \u0925\u092e\u094d\u092c\u0928\u0947\u0932 \u092f\u0939\u093e\u0901 \u0921\u094d\u0930\u0948\u0917 \u0914\u0930 \u0921\u094d\u0930\u0949\u092a \u0915\u0930\u0947\u0902',
-      uploadHint: '\u092f\u093e \u0915\u094d\u0932\u093f\u0915 \u0915\u0930\u0947\u0902 \u00b7 Ctrl+V \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902 (PNG, JPG, WebP)',
-      videoTitleLabel: '\u0935\u0940\u0921\u093f\u092f\u094b \u0936\u0940\u0930\u094d\u0937\u0915',
-      channelNameLabel: '\u091a\u0948\u0928\u0932 \u0915\u093e \u0928\u093e\u092e',
-      generateBtn: '\u092a\u094d\u0930\u0940\u0935\u094d\u092f\u0942 \u092c\u0928\u093e\u090f\u0902',
-      resetBtn: '\u0930\u0940\u0938\u0947\u091f',
-      compareBtn: '\u0932\u093e\u0907\u091f/\u0921\u093e\u0930\u094d\u0915 \u0915\u0940 \u0924\u0941\u0932\u0928\u093e',
-      downloadBtn: '\u092a\u094d\u0930\u0940\u0935\u094d\u092f\u0942 \u0921\u093e\u0909\u0928\u0932\u094b\u0921',
-      shareBtn: '\u0936\u0947\u092f\u0930',
-      copyLink: '\u0932\u093f\u0902\u0915 \u0915\u0949\u092a\u0940',
-      copied: '\u0915\u0949\u092a\u0940 \u0939\u094b \u0917\u092f\u093e!',
-      faqHeading: '\u0905\u0915\u094d\u0938\u0930 \u092a\u0942\u091b\u0947 \u091c\u093e\u0928\u0947 \u0935\u093e\u0932\u0947 \u0938\u0935\u093e\u0932',
-      feedbackBtn: '\u092b\u0940\u0921\u092c\u0948\u0915',
-      footerHome: '\u0939\u094b\u092e',
-      counterToday: '\u0906\u091c',
-      counterTotal: '\u0915\u0941\u0932',
-      alertNoImage: '\u092a\u0939\u0932\u0947 \u0925\u092e\u094d\u092c\u0928\u0947\u0932 \u0905\u092a\u0932\u094b\u0921 \u0915\u0930\u0947\u0902\u0964',
+      sectionTitle: 'अपना YouTube थंबनेल प्रीव्यू करें',
+      sectionSubtitle: 'थंबनेल अपलोड करें और देखें कि YouTube पर कैसा दिखेगा — सब आपके ब्राउज़र में प्रोसेस होता है।',
+      uploadText: 'अपना थंबनेल यहाँ ड्रैग और ड्रॉप करें',
+      uploadHint: 'या क्लिक करें · Ctrl+V पेस्ट करें (PNG, JPG, WebP)',
+      videoTitleLabel: 'वीडियो शीर्षक',
+      channelNameLabel: 'चैनल का नाम',
+      generateBtn: 'प्रीव्यू बनाएं',
+      resetBtn: 'रीसेट',
+      compareBtn: 'लाइट/डार्क की तुलना',
+      downloadBtn: 'प्रीव्यू डाउनलोड',
+      shareBtn: 'शेयर',
+      copyLink: 'लिंक कॉपी',
+      copied: 'कॉपी हो गया!',
+      faqHeading: 'अक्सर पूछे जाने वाले सवाल',
+      feedbackBtn: 'फीडबैक',
+      footerHome: 'होम',
+      alertNoImage: 'पहले थंबनेल अपलोड करें।'
     },
 
     id: {
       sectionTitle: 'Pratinjau Thumbnail YouTube Anda',
-      sectionSubtitle: 'Unggah thumbnail dan lihat tampilannya di tata letak YouTube asli \u2014 semua diproses di browser Anda.',
+      sectionSubtitle: 'Unggah thumbnail dan lihat tampilannya di tata letak YouTube asli — semua diproses di browser Anda.',
       uploadText: 'Seret & lepas thumbnail Anda di sini',
-      uploadHint: 'atau klik untuk menelusuri \u00b7 Ctrl+V untuk menempel (PNG, JPG, WebP)',
+      uploadHint: 'atau klik untuk menelusuri · Ctrl+V untuk menempel (PNG, JPG, WebP)',
       videoTitleLabel: 'Judul Video',
       channelNameLabel: 'Nama Channel',
       generateBtn: 'Buat Pratinjau',
@@ -492,233 +407,257 @@
       faqHeading: 'Pertanyaan yang Sering Diajukan',
       feedbackBtn: 'Masukan',
       footerHome: 'Beranda',
-      counterToday: 'Hari Ini',
-      counterTotal: 'Total',
-      alertNoImage: 'Silakan unggah thumbnail terlebih dahulu.',
+      alertNoImage: 'Silakan unggah thumbnail terlebih dahulu.'
     },
 
     th: {
-      sectionTitle: '\u0e14\u0e39\u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e20\u0e32\u0e1e\u0e22\u0e48\u0e2d YouTube \u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13',
-      uploadText: '\u0e25\u0e32\u0e01\u0e41\u0e25\u0e30\u0e27\u0e32\u0e07\u0e20\u0e32\u0e1e\u0e22\u0e48\u0e2d\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e17\u0e35\u0e48\u0e19\u0e35\u0e48',
-      generateBtn: '\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07',
-      resetBtn: '\u0e23\u0e35\u0e40\u0e0b\u0e47\u0e15',
-      shareBtn: '\u0e41\u0e0a\u0e23\u0e4c',
-      faqHeading: '\u0e04\u0e33\u0e16\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e1a\u0e1a\u0e48\u0e2d\u0e22',
-      feedbackBtn: '\u0e04\u0e27\u0e32\u0e21\u0e04\u0e34\u0e14\u0e40\u0e2b\u0e47\u0e19',
-      alertNoImage: '\u0e01\u0e23\u0e38\u0e13\u0e32\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e20\u0e32\u0e1e\u0e22\u0e48\u0e2d\u0e01\u0e48\u0e2d\u0e19',
+      sectionTitle: 'ดูตัวอย่างภาพย่อ YouTube ของคุณ',
+      uploadText: 'ลากและวางภาพย่อของคุณที่นี่',
+      generateBtn: 'สร้างตัวอย่าง',
+      resetBtn: 'รีเซ็ต',
+      shareBtn: 'แชร์',
+      faqHeading: 'คำถามที่พบบ่อย',
+      feedbackBtn: 'ความคิดเห็น',
+      alertNoImage: 'กรุณาอัปโหลดภาพย่อก่อน'
     },
 
     vi: {
-      sectionTitle: 'Xem tr\u01b0\u1edbc Thumbnail YouTube c\u1ee7a b\u1ea1n',
-      uploadText: 'K\u00e9o v\u00e0 th\u1ea3 thumbnail c\u1ee7a b\u1ea1n v\u00e0o \u0111\u00e2y',
-      generateBtn: 'T\u1ea1o xem tr\u01b0\u1edbc',
-      resetBtn: '\u0110\u1eb7t l\u1ea1i',
-      shareBtn: 'Chia s\u1ebb',
-      faqHeading: 'C\u00e2u h\u1ecfi th\u01b0\u1eddng g\u1eb7p',
-      feedbackBtn: 'G\u00f3p \u00fd',
-      alertNoImage: 'Vui l\u00f2ng t\u1ea3i l\u00ean thumbnail tr\u01b0\u1edbc.',
+      sectionTitle: 'Xem trước Thumbnail YouTube của bạn',
+      uploadText: 'Kéo và thả thumbnail của bạn vào đây',
+      generateBtn: 'Tạo xem trước',
+      resetBtn: 'Đặt lại',
+      shareBtn: 'Chia sẻ',
+      faqHeading: 'Câu hỏi thường gặp',
+      feedbackBtn: 'Góp ý',
+      alertNoImage: 'Vui lòng tải lên thumbnail trước.'
     },
 
     tr: {
-      sectionTitle: 'YouTube K\u00fc\u00e7\u00fck Resminizi \u00d6nizleyin',
-      uploadText: 'K\u00fc\u00e7\u00fck resminizi buraya s\u00fcr\u00fckleyip b\u0131rak\u0131n',
-      generateBtn: '\u00d6nizleme Olu\u015ftur',
-      resetBtn: 'S\u0131f\u0131rla',
-      shareBtn: 'Payla\u015f',
-      faqHeading: 'S\u0131k Sorulan Sorular',
+      sectionTitle: 'YouTube Küçük Resminizi Önizleyin',
+      uploadText: 'Küçük resminizi buraya sürükleyip bırakın',
+      generateBtn: 'Önizleme Oluştur',
+      resetBtn: 'Sıfırla',
+      shareBtn: 'Paylaş',
+      faqHeading: 'Sık Sorulan Sorular',
       feedbackBtn: 'Geri Bildirim',
-      alertNoImage: 'L\u00fctfen \u00f6nce bir k\u00fc\u00e7\u00fck resim y\u00fckleyin.',
+      alertNoImage: 'Lütfen önce bir küçük resim yükleyin.'
     },
 
     ru: {
-      sectionTitle: '\u041f\u0440\u0435\u0434\u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u043c\u0438\u043d\u0438\u0430\u0442\u044e\u0440\u044b YouTube',
-      uploadText: '\u041f\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u043c\u0438\u043d\u0438\u0430\u0442\u044e\u0440\u0443 \u0441\u044e\u0434\u0430',
-      generateBtn: '\u0421\u043e\u0437\u0434\u0430\u0442\u044c \u043f\u0440\u0435\u0432\u044c\u044e',
-      resetBtn: '\u0421\u0431\u0440\u043e\u0441',
-      shareBtn: '\u041f\u043e\u0434\u0435\u043b\u0438\u0442\u044c\u0441\u044f',
-      faqHeading: '\u0427\u0430\u0441\u0442\u043e \u0437\u0430\u0434\u0430\u0432\u0430\u0435\u043c\u044b\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b',
-      feedbackBtn: '\u041e\u0431\u0440\u0430\u0442\u043d\u0430\u044f \u0441\u0432\u044f\u0437\u044c',
-      alertNoImage: '\u0421\u043d\u0430\u0447\u0430\u043b\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u0435 \u043c\u0438\u043d\u0438\u0430\u0442\u044e\u0440\u0443.',
+      sectionTitle: 'Предпросмотр миниатюры YouTube',
+      sectionSubtitle: 'Загрузите миниатюру и посмотрите, как она выглядит в реальных макетах YouTube — всё обрабатывается в вашем браузере.',
+      uploadText: 'Перетащите миниатюру сюда',
+      uploadHint: 'или нажмите для выбора · Ctrl+V для вставки (PNG, JPG, WebP)',
+      generateBtn: 'Создать превью',
+      resetBtn: 'Сброс',
+      shareBtn: 'Поделиться',
+      faqHeading: 'Часто задаваемые вопросы',
+      feedbackBtn: 'Обратная связь',
+      alertNoImage: 'Сначала загрузите миниатюру.'
     },
 
     ar: {
-      sectionTitle: '\u0645\u0639\u0627\u064a\u0646\u0629 \u0635\u0648\u0631\u0629 \u0645\u0635\u063a\u0631\u0629 YouTube',
-      uploadText: '\u0627\u0633\u062d\u0628 \u0648\u0623\u0641\u0644\u062a \u0627\u0644\u0635\u0648\u0631\u0629 \u0627\u0644\u0645\u0635\u063a\u0631\u0629 \u0647\u0646\u0627',
-      generateBtn: '\u0625\u0646\u0634\u0627\u0621 \u0645\u0639\u0627\u064a\u0646\u0629',
-      resetBtn: '\u0625\u0639\u0627\u062f\u0629 \u0636\u0628\u0637',
-      shareBtn: '\u0645\u0634\u0627\u0631\u0643\u0629',
-      faqHeading: '\u0627\u0644\u0623\u0633\u0626\u0644\u0629 \u0627\u0644\u0634\u0627\u0626\u0639\u0629',
-      feedbackBtn: '\u0645\u0644\u0627\u062d\u0638\u0627\u062a',
-      alertNoImage: '\u064a\u0631\u062c\u0649 \u0631\u0641\u0639 \u0627\u0644\u0635\u0648\u0631\u0629 \u0627\u0644\u0645\u0635\u063a\u0631\u0629 \u0623\u0648\u0644\u0627\u064b.',
-    },
+      sectionTitle: 'معاينة صورة مصغرة YouTube',
+      uploadText: 'اسحب وأفلت الصورة المصغرة هنا',
+      generateBtn: 'إنشاء معاينة',
+      resetBtn: 'إعادة ضبط',
+      shareBtn: 'مشاركة',
+      faqHeading: 'الأسئلة الشائعة',
+      feedbackBtn: 'ملاحظات',
+      alertNoImage: 'يرجى رفع الصورة المصغرة أولاً.'
+    }
   };
 
-  // Mapping from i18n keys to CSS selectors and what to update
-  var selectors = [
-    // Upload section
-    { key: 'sectionTitle', sel: '.section-title', prop: 'textContent' },
-    { key: 'sectionSubtitle', sel: '.section-subtitle', prop: 'textContent' },
-    { key: 'uploadText', sel: '.upload-text', prop: 'textContent' },
-    { key: 'uploadHint', sel: '#uploadHint', prop: 'textContent' },
-    { key: 'videoTitleLabel', sel: 'label[for="videoTitle"]', prop: 'textContent' },
-    { key: 'channelNameLabel', sel: 'label[for="channelName"]', prop: 'textContent' },
-    { key: 'videoTitlePlaceholder', sel: '#videoTitle', prop: 'placeholder' },
-    { key: 'channelNamePlaceholder', sel: '#channelName', prop: 'placeholder' },
-    { key: 'generateBtn', sel: '#previewBtn span', prop: 'textContent' },
-    { key: 'resetBtn', sel: '#resetBtn span', prop: 'textContent' },
+  // Mockup label keys in order
+  var mockupLabelKeys = ['homeFeedLight', 'homeFeedDark', 'searchResults', 'sidebarSuggested', 'homeFeedLight', 'homeFeedDark', 'shortsCard'];
 
-    // Mockups section
-    { key: 'mockupsHeading', sel: '.mockups-heading', prop: 'textContent' },
-    { key: 'mockupsSubheading', sel: '.mockups-subheading', prop: 'textContent' },
-
-    // Toolbar buttons — select by ID to avoid matching wrong spans
-    { key: 'downloadBtn', sel: '#downloadAllBtn', prop: 'lastText' },
-    { key: 'shareBtn', sel: '#shareBtn', prop: 'lastText' },
-    { key: 'compareBtn', sel: '#compareToggle', prop: 'lastText' },
-
-    // Share dropdown
-    { key: 'copyLink', sel: '#copyLinkBtn', prop: 'textContent' },
-
-    // Mockup group headings (by index)
-    { key: 'desktopViews', sel: '.mockup-group-heading', prop: 'textContent', idx: 0 },
-    { key: 'mobileViews', sel: '.mockup-group-heading', prop: 'textContent', idx: 1 },
-    { key: 'otherLayouts', sel: '.mockup-group-heading', prop: 'textContent', idx: 2 },
-
-    // Mockup labels (by index)
-    { key: 'homeFeedLight', sel: '.mockup-label', prop: 'textContent', idx: 0 },
-    { key: 'homeFeedDark', sel: '.mockup-label', prop: 'textContent', idx: 1 },
-    { key: 'searchResults', sel: '.mockup-label', prop: 'textContent', idx: 2 },
-    { key: 'sidebarSuggested', sel: '.mockup-label', prop: 'textContent', idx: 3 },
-    { key: 'homeFeedLight', sel: '.mockup-label', prop: 'textContent', idx: 4 },
-    { key: 'homeFeedDark', sel: '.mockup-label', prop: 'textContent', idx: 5 },
-    { key: 'shortsCard', sel: '.mockup-label', prop: 'textContent', idx: 6 },
-
-    // FAQ
-    { key: 'faqHeading', sel: '.faq-heading', prop: 'textContent' },
-
-    // Footer
-    { key: 'feedbackBtn', sel: '.feedback-fab-label', prop: 'textContent' },
-    { key: 'footerTagline', sel: '.footer-tagline', prop: 'textContent' },
-    { key: 'counterToday', sel: '.counter-label', prop: 'textContent', idx: 0 },
-    { key: 'counterTotal', sel: '.counter-label', prop: 'textContent', idx: 1 },
-    { key: 'footerCopy', sel: '.footer-copy', prop: 'textContent' },
-  ];
-
-  // Footer nav links (by index in .footer-nav)
+  // Footer nav keys in order
   var footerNavKeys = ['footerHome', 'footerAbout', 'footerHowTo', 'footerSizeGuide', 'footerTips', 'footerPrivacy', 'footerTerms'];
 
-  // FAQ items (by index)
-  var faqKeys = [
+  // FAQ keys in order
+  var faqPairs = [
     { q: 'faqQ1', a: 'faqA1' },
     { q: 'faqQ2', a: 'faqA2' },
     { q: 'faqQ3', a: 'faqA3' },
     { q: 'faqQ4', a: 'faqA4' },
     { q: 'faqQ5', a: 'faqA5' },
-    { q: 'faqQ6', a: 'faqA6' },
+    { q: 'faqQ6', a: 'faqA6' }
   ];
 
-  function detectLanguage() {
-    var lang = navigator.language || navigator.userLanguage || 'en';
-    var base = lang.split('-')[0].toLowerCase();
-    // Special case: zh-TW/zh-HK use zh (simplified serves as fallback)
-    if (translations[base]) return base;
+  function t(lang, key) {
+    return (T[lang] && T[lang][key]) || T.en[key] || '';
+  }
+
+  function detectLang() {
+    // 1. Check localStorage for manual selection
+    var saved = null;
+    try { saved = localStorage.getItem('tp-lang'); } catch (e) {}
+    if (saved && T[saved]) return saved;
+
+    // 2. Check navigator.languages array (all preferred languages)
+    var langs = [];
+    try {
+      if (navigator.languages && navigator.languages.length) {
+        langs = navigator.languages;
+      } else if (navigator.language) {
+        langs = [navigator.language];
+      }
+    } catch (e) {}
+
+    for (var i = 0; i < langs.length; i++) {
+      var base = langs[i].split('-')[0].toLowerCase();
+      if (T[base]) return base;
+    }
+
     return 'en';
   }
 
-  function t(lang, key) {
-    // Fallback chain: requested lang -> en
-    if (translations[lang] && translations[lang][key]) return translations[lang][key];
-    return translations.en[key] || '';
-  }
+  function applyLang(lang) {
+    if (!T[lang]) lang = 'en';
 
-  function applyTranslations() {
-    var lang = detectLanguage();
-    if (lang === 'en') return; // English is already the default, no need to translate
-
-    // Set html lang attribute
+    // 1. Set html lang
     document.documentElement.lang = lang;
 
-    // Update page title
-    if (t(lang, 'pageTitle')) document.title = t(lang, 'pageTitle');
+    // 2. Update language selector
+    var sel = document.getElementById('langSelect');
+    if (sel) sel.value = lang;
 
-    // Apply selector-based translations
-    selectors.forEach(function (item) {
-      var val = t(lang, item.key);
-      if (!val) return;
+    // 3. Translate all [data-i18n] elements
+    var els = document.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < els.length; i++) {
+      var key = els[i].getAttribute('data-i18n');
+      var val = t(lang, key);
+      if (val) els[i].textContent = val;
+    }
 
-      var els = document.querySelectorAll(item.sel);
-      var el = (typeof item.idx === 'number') ? els[item.idx] : els[0];
+    // 4. Translate [data-i18n-placeholder] elements
+    var plEls = document.querySelectorAll('[data-i18n-placeholder]');
+    for (var i = 0; i < plEls.length; i++) {
+      var key = plEls[i].getAttribute('data-i18n-placeholder');
+      var val = t(lang, key);
+      if (val) plEls[i].placeholder = val;
+    }
+
+    // 5. Translate default input values
+    var vt = document.getElementById('videoTitle');
+    var cn = document.getElementById('channelName');
+    if (vt) {
+      var vtDef = t('en', 'videoTitleDefault');
+      if (vt.value === vtDef || vt.value === t(lang, 'videoTitleDefault') || !vt.dataset.userEdited) {
+        vt.value = t(lang, 'videoTitleDefault');
+      }
+    }
+    if (cn) {
+      var cnDef = t('en', 'channelDefault');
+      if (cn.value === cnDef || cn.value === t(lang, 'channelDefault') || !cn.dataset.userEdited) {
+        cn.value = t(lang, 'channelDefault');
+      }
+    }
+
+    // 6. Toolbar buttons (icon + text)
+    var btnMap = {
+      compareToggle: 'compareBtn',
+      downloadAllBtn: 'downloadBtn',
+      shareBtn: 'shareBtn'
+    };
+    Object.keys(btnMap).forEach(function (id) {
+      var el = document.getElementById(id);
       if (!el) return;
-
-      if (item.prop === 'textContent') {
-        el.textContent = val;
-      } else if (item.prop === 'placeholder') {
-        el.placeholder = val;
-      } else if (item.prop === 'lastText') {
-        // For buttons with icon span + text: replace the text node after the span
-        var nodes = el.childNodes;
-        for (var i = nodes.length - 1; i >= 0; i--) {
-          if (nodes[i].nodeType === 3 && nodes[i].textContent.trim()) {
-            nodes[i].textContent = ' ' + val;
-            break;
-          }
+      var val = t(lang, btnMap[id]);
+      if (!val) return;
+      // Find the text node after the icon span
+      var nodes = el.childNodes;
+      for (var j = nodes.length - 1; j >= 0; j--) {
+        if (nodes[j].nodeType === 3 && nodes[j].textContent.trim()) {
+          nodes[j].textContent = ' ' + val;
+          break;
         }
       }
     });
 
-    // Update default input values (only if user hasn't changed them)
-    var videoTitleEl = document.getElementById('videoTitle');
-    var channelNameEl = document.getElementById('channelName');
-    if (videoTitleEl && videoTitleEl.value === 'Your Amazing Video Title Here') {
-      videoTitleEl.value = t(lang, 'videoTitleDefault') || videoTitleEl.value;
-    }
-    if (channelNameEl && channelNameEl.value === 'Your Channel') {
-      channelNameEl.value = t(lang, 'channelDefault') || channelNameEl.value;
+    // 7. Mockup labels
+    var labels = document.querySelectorAll('.mockup-label');
+    for (var i = 0; i < labels.length && i < mockupLabelKeys.length; i++) {
+      var val = t(lang, mockupLabelKeys[i]);
+      if (val) labels[i].textContent = val;
     }
 
-    // Translate footer nav links
-    var footerLinks = document.querySelectorAll('.footer-nav a');
-    footerNavKeys.forEach(function (key, i) {
-      if (footerLinks[i] && t(lang, key)) {
-        footerLinks[i].textContent = t(lang, key);
-      }
-    });
+    // 8. Footer nav
+    var navLinks = document.querySelectorAll('.footer-nav a');
+    for (var i = 0; i < navLinks.length && i < footerNavKeys.length; i++) {
+      var val = t(lang, footerNavKeys[i]);
+      if (val) navLinks[i].textContent = val;
+    }
 
-    // Translate FAQ items
+    // 9. Footer misc
+    var tagline = document.querySelector('.footer-tagline');
+    if (tagline) tagline.textContent = t(lang, 'footerTagline');
+    var copy = document.querySelector('.footer-copy');
+    if (copy) copy.textContent = t(lang, 'footerCopy');
+
+    // 10. Counter labels
+    var counterLabels = document.querySelectorAll('.counter-label');
+    if (counterLabels[0]) counterLabels[0].textContent = t(lang, 'counterToday');
+    if (counterLabels[1]) counterLabels[1].textContent = t(lang, 'counterTotal');
+
+    // 11. Feedback button
+    var fab = document.querySelector('.feedback-fab-label');
+    if (fab) fab.textContent = t(lang, 'feedbackBtn');
+
+    // 12. FAQ items
     var faqItems = document.querySelectorAll('.faq-item');
-    faqKeys.forEach(function (pair, i) {
-      if (!faqItems[i]) return;
+    for (var i = 0; i < faqItems.length && i < faqPairs.length; i++) {
       var summary = faqItems[i].querySelector('summary');
       var answer = faqItems[i].querySelector('.faq-answer p');
-      if (summary && t(lang, pair.q)) summary.textContent = t(lang, pair.q);
-      if (answer && t(lang, pair.a)) answer.textContent = t(lang, pair.a);
+      var qVal = t(lang, faqPairs[i].q);
+      var aVal = t(lang, faqPairs[i].a);
+      if (summary && qVal) summary.textContent = qVal;
+      if (answer && aVal) answer.textContent = aVal;
+    }
+
+    // 13. Search description & stats
+    var sd = document.querySelector('.yt-search-desc');
+    if (sd) { var v = t(lang, 'searchDesc'); if (v) sd.textContent = v; }
+    document.querySelectorAll('.yt-stats').forEach(function (el) {
+      var v = t(lang, 'viewsStats'); if (v) el.textContent = v;
     });
+    var sv = document.querySelector('.yt-shorts-views');
+    if (sv) { var v = t(lang, 'shortsViews'); if (v) sv.textContent = v; }
 
-    // Translate search description
-    var searchDescEl = document.querySelector('.yt-search-desc');
-    if (searchDescEl && t(lang, 'searchDesc')) {
-      searchDescEl.textContent = t(lang, 'searchDesc');
-    }
+    // 14. Page title
+    var pt = t(lang, 'pageTitle');
+    if (pt) document.title = pt;
 
-    // Translate view stats
-    var statsEls = document.querySelectorAll('.yt-stats');
-    var shortsViewsEl = document.querySelector('.yt-shorts-views');
-    if (t(lang, 'viewsStats')) {
-      statsEls.forEach(function (el) { el.textContent = t(lang, 'viewsStats'); });
-    }
-    if (shortsViewsEl && t(lang, 'shortsViews')) {
-      shortsViewsEl.textContent = t(lang, 'shortsViews');
-    }
-
-    // Store the current language so app.js can use translated alert messages
+    // Expose to app.js
     window.__tp_lang = lang;
     window.__tp_t = function (key) { return t(lang, key); };
+
+    // Save preference
+    try { localStorage.setItem('tp-lang', lang); } catch (e) {}
   }
 
-  // Run after DOM is ready
+  function init() {
+    var lang = detectLang();
+    applyLang(lang);
+
+    // Language selector change handler
+    var sel = document.getElementById('langSelect');
+    if (sel) {
+      sel.addEventListener('change', function () {
+        applyLang(this.value);
+      });
+    }
+
+    // Track if user has manually edited inputs
+    var vt = document.getElementById('videoTitle');
+    var cn = document.getElementById('channelName');
+    if (vt) vt.addEventListener('input', function () { this.dataset.userEdited = '1'; });
+    if (cn) cn.addEventListener('input', function () { this.dataset.userEdited = '1'; });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', applyTranslations);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    applyTranslations();
+    init();
   }
 })();

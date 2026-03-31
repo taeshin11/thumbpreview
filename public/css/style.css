@@ -1242,6 +1242,37 @@ button, input {
   .feedback-fab { padding: 12px; border-radius: 50%; }
 }
 
+/* --- Language Selector --- */
+.lang-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--bg-secondary, var(--bg-card));
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 24px 4px 10px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236B6560' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: border-color var(--transition);
+  min-width: 56px;
+}
+
+.lang-select:hover, .lang-select:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 /* Hide ads on very small screens */
 @media (max-width: 767px) {
   .ad-banner {

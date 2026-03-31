@@ -173,6 +173,23 @@
         <span class="logo-text">Thumb<strong>Preview</strong></span>
       </a>
       <nav class="header-nav" aria-label="Main navigation">
+        <select id="langSelect" class="lang-select" aria-label="Select language" title="Language">
+          <option value="en">EN</option>
+          <option value="ko">한국어</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="hi">हिन्दी</option>
+          <option value="id">Bahasa</option>
+          <option value="th">ไทย</option>
+          <option value="vi">Tiếng Việt</option>
+          <option value="tr">Türkçe</option>
+          <option value="ru">Русский</option>
+          <option value="ar">العربية</option>
+        </select>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
           <span class="theme-icon theme-icon--light">&#9788;</span>
           <span class="theme-icon theme-icon--dark">&#9789;</span>
@@ -202,8 +219,8 @@
 
       <!-- LEFT: Upload & Controls -->
       <section class="upload-section" aria-label="Thumbnail upload">
-        <h1 class="section-title">Preview Your YouTube Thumbnail</h1>
-        <p class="section-subtitle">Upload a thumbnail and see how it looks on real YouTube layouts — all processed in your browser. No uploads to any server.</p>
+        <h1 class="section-title" data-i18n="sectionTitle">Preview Your YouTube Thumbnail</h1>
+        <p class="section-subtitle" data-i18n="sectionSubtitle">Upload a thumbnail and see how it looks on real YouTube layouts — all processed in your browser. No uploads to any server.</p>
 
         <!-- Upload Area -->
         <div class="upload-area" id="uploadArea" tabindex="0" role="button" aria-label="Click or drag to upload thumbnail" aria-describedby="uploadHint">
@@ -213,8 +230,8 @@
               <polyline points="17 8 12 3 7 8"/>
               <line x1="12" y1="3" x2="12" y2="15"/>
             </svg>
-            <p class="upload-text">Drag & drop your thumbnail here</p>
-            <p class="upload-hint" id="uploadHint">or click to browse &middot; Ctrl+V to paste (PNG, JPG, WebP)</p>
+            <p class="upload-text" data-i18n="uploadText">Drag & drop your thumbnail here</p>
+            <p class="upload-hint" id="uploadHint" data-i18n="uploadHint">or click to browse &middot; Ctrl+V to paste (PNG, JPG, WebP)</p>
           </div>
           <img id="uploadPreview" class="upload-preview" alt="Uploaded thumbnail preview" style="display:none;">
           <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.webp" hidden aria-label="Choose thumbnail file">
@@ -223,18 +240,18 @@
         <!-- Controls -->
         <div class="controls">
           <div class="control-group">
-            <label for="videoTitle" class="control-label">Video Title</label>
-            <input type="text" id="videoTitle" class="control-input" value="Your Amazing Video Title Here" maxlength="100" placeholder="Enter your video title">
+            <label for="videoTitle" class="control-label" data-i18n="videoTitleLabel">Video Title</label>
+            <input type="text" id="videoTitle" class="control-input" value="Your Amazing Video Title Here" maxlength="100" data-i18n-placeholder="videoTitlePlaceholder" placeholder="Enter your video title">
           </div>
           <div class="control-group">
-            <label for="channelName" class="control-label">Channel Name</label>
-            <input type="text" id="channelName" class="control-input" value="Your Channel" maxlength="50" placeholder="Enter your channel name">
+            <label for="channelName" class="control-label" data-i18n="channelNameLabel">Channel Name</label>
+            <input type="text" id="channelName" class="control-input" value="Your Channel" maxlength="50" data-i18n-placeholder="channelNamePlaceholder" placeholder="Enter your channel name">
           </div>
           <button class="btn btn-primary" id="previewBtn" disabled>
-            <span>Generate Previews</span>
+            <span data-i18n="generateBtn">Generate Previews</span>
           </button>
           <button class="btn btn-secondary" id="resetBtn" style="display:none;">
-            <span>Reset</span>
+            <span data-i18n="resetBtn">Reset</span>
           </button>
         </div>
       </section>
@@ -259,8 +276,8 @@
     <!-- PREVIEW MOCKUPS -->
     <section class="mockups-section" id="mockupsSection" aria-label="YouTube preview mockups" style="display:none;">
       <div class="container">
-        <h2 class="mockups-heading">Your Thumbnail on YouTube</h2>
-        <p class="mockups-subheading">See how viewers will see your thumbnail across different YouTube layouts.</p>
+        <h2 class="mockups-heading" data-i18n="mockupsHeading">Your Thumbnail on YouTube</h2>
+        <p class="mockups-subheading" data-i18n="mockupsSubheading">See how viewers will see your thumbnail across different YouTube layouts.</p>
 
         <!-- Mockups Toolbar -->
         <div class="mockups-toolbar">
@@ -281,12 +298,12 @@
           <a href="https://www.reddit.com/submit?url=https://public-nine-swart.vercel.app&title=Free%20YouTube%20Thumbnail%20Previewer%20%E2%80%94%20see%20how%20your%20thumbnail%20looks%20on%20real%20YouTube%20layouts" target="_blank" rel="noopener" class="share-link share-reddit">Reddit</a>
           <a href="https://www.facebook.com/sharer/sharer.php?u=https://public-nine-swart.vercel.app" target="_blank" rel="noopener" class="share-link share-facebook">Facebook</a>
           <a href="https://pinterest.com/pin/create/button/?url=https://public-nine-swart.vercel.app&description=Free%20YouTube%20Thumbnail%20Previewer" target="_blank" rel="noopener" class="share-link share-pinterest">Pinterest</a>
-          <button class="share-link share-copy" id="copyLinkBtn">Copy Link</button>
+          <button class="share-link share-copy" id="copyLinkBtn" data-i18n="copyLink">Copy Link</button>
         </div>
 
         <!-- Desktop Views -->
         <div class="mockup-group">
-          <h3 class="mockup-group-heading">Desktop Views</h3>
+          <h3 class="mockup-group-heading" data-i18n="desktopViews">Desktop Views</h3>
           <div class="mockups-grid" id="desktopGrid">
 
             <article class="mockup-card" data-compare-group="desktop-home" data-compare-variant="light">
@@ -368,7 +385,7 @@
 
         <!-- Mobile Views -->
         <div class="mockup-group">
-          <h3 class="mockup-group-heading">Mobile Views</h3>
+          <h3 class="mockup-group-heading" data-i18n="mobileViews">Mobile Views</h3>
           <div class="mockups-grid" id="mobileGrid">
 
             <article class="mockup-card" data-compare-group="mobile-home" data-compare-variant="light">
@@ -410,7 +427,7 @@
 
         <!-- Other Layouts -->
         <div class="mockup-group">
-          <h3 class="mockup-group-heading">Other Layouts</h3>
+          <h3 class="mockup-group-heading" data-i18n="otherLayouts">Other Layouts</h3>
           <div class="mockups-grid">
 
             <article class="mockup-card">
@@ -444,7 +461,7 @@
   <!-- SEO: FAQ Section for organic traffic -->
   <section class="faq-section" aria-label="Frequently Asked Questions">
     <div class="container">
-      <h2 class="faq-heading">Frequently Asked Questions</h2>
+      <h2 class="faq-heading" data-i18n="faqHeading">Frequently Asked Questions</h2>
       <div class="faq-grid">
         <details class="faq-item">
           <summary>How do I preview my YouTube thumbnail before uploading?</summary>
