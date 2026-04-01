@@ -16,6 +16,18 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="YouTube Thumbnail Size Guide 2026">
   <meta name="twitter:description" content="Complete guide to YouTube thumbnail dimensions, formats, and design tips.">
+  <meta name="twitter:image" content="https://public-nine-swart.vercel.app/assets/og-image.png">
+  <meta property="og:image" content="https://public-nine-swart.vercel.app/assets/og-image.png">
+  <meta property="og:site_name" content="ThumbPreview">
+  <link rel="alternate" hreflang="en" href="https://public-nine-swart.vercel.app/youtube-thumbnail-size-guide.html">
+  <link rel="alternate" hreflang="ko" href="https://public-nine-swart.vercel.app/youtube-thumbnail-size-guide.html">
+  <link rel="alternate" hreflang="ja" href="https://public-nine-swart.vercel.app/youtube-thumbnail-size-guide.html">
+  <link rel="alternate" hreflang="zh" href="https://public-nine-swart.vercel.app/youtube-thumbnail-size-guide.html">
+  <link rel="alternate" hreflang="es" href="https://public-nine-swart.vercel.app/youtube-thumbnail-size-guide.html">
+  <link rel="alternate" hreflang="de" href="https://public-nine-swart.vercel.app/youtube-thumbnail-size-guide.html">
+  <link rel="alternate" hreflang="fr" href="https://public-nine-swart.vercel.app/youtube-thumbnail-size-guide.html">
+  <link rel="alternate" hreflang="pt" href="https://public-nine-swart.vercel.app/youtube-thumbnail-size-guide.html">
+  <link rel="alternate" hreflang="x-default" href="https://public-nine-swart.vercel.app/youtube-thumbnail-size-guide.html">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -85,7 +97,24 @@
         <span class="logo-icon">&#9654;</span>
         <span class="logo-text">Thumb<strong>Preview</strong></span>
       </a>
-      <nav>
+      <nav class="header-nav" aria-label="Main navigation">
+        <select id="langSelect" class="lang-select" aria-label="Select language" title="Language">
+          <option value="en">EN</option>
+          <option value="ko">한국어</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="hi">हिन्दी</option>
+          <option value="id">Bahasa</option>
+          <option value="th">ไทย</option>
+          <option value="vi">Tiếng Việt</option>
+          <option value="tr">Türkçe</option>
+          <option value="ru">Русский</option>
+          <option value="ar">العربية</option>
+        </select>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
           <span class="theme-icon theme-icon--light">&#9788;</span>
           <span class="theme-icon theme-icon--dark">&#9789;</span>
@@ -242,5 +271,6 @@
       });
     })();
   </script>
+  <script src="/js/i18n.js" defer></script>
 </body>
 </html>

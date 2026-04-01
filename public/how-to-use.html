@@ -11,7 +11,36 @@
   <meta property="og:title" content="How to Use ThumbPreview — Guide & FAQ">
   <meta property="og:description" content="Step-by-step guide and FAQ for previewing YouTube thumbnails.">
   <meta property="og:url" content="https://public-nine-swart.vercel.app/how-to-use.html">
+  <meta property="og:image" content="https://public-nine-swart.vercel.app/assets/og-image.png">
+  <meta property="og:site_name" content="ThumbPreview">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Use ThumbPreview — Guide & FAQ">
+  <meta name="twitter:description" content="Step-by-step guide and FAQ for previewing YouTube thumbnails.">
+  <meta name="twitter:image" content="https://public-nine-swart.vercel.app/assets/og-image.png">
+  <meta name="robots" content="index, follow">
+  <link rel="alternate" hreflang="en" href="https://public-nine-swart.vercel.app/how-to-use.html">
+  <link rel="alternate" hreflang="ko" href="https://public-nine-swart.vercel.app/how-to-use.html">
+  <link rel="alternate" hreflang="ja" href="https://public-nine-swart.vercel.app/how-to-use.html">
+  <link rel="alternate" hreflang="zh" href="https://public-nine-swart.vercel.app/how-to-use.html">
+  <link rel="alternate" hreflang="es" href="https://public-nine-swart.vercel.app/how-to-use.html">
+  <link rel="alternate" hreflang="de" href="https://public-nine-swart.vercel.app/how-to-use.html">
+  <link rel="alternate" hreflang="fr" href="https://public-nine-swart.vercel.app/how-to-use.html">
+  <link rel="alternate" hreflang="pt" href="https://public-nine-swart.vercel.app/how-to-use.html">
+  <link rel="alternate" hreflang="x-default" href="https://public-nine-swart.vercel.app/how-to-use.html">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Use ThumbPreview — YouTube Thumbnail Previewer",
+    "description": "Step-by-step guide on how to preview your YouTube thumbnails with ThumbPreview.",
+    "step": [
+      { "@type": "HowToStep", "name": "Upload Your Thumbnail", "text": "Drag and drop your thumbnail image, click to browse, or paste from clipboard." },
+      { "@type": "HowToStep", "name": "Customize Title and Channel", "text": "Enter your video title and channel name to see real-time updates across all mockups." },
+      { "@type": "HowToStep", "name": "Compare Across Layouts", "text": "Review your thumbnail in 7 YouTube layouts including desktop, mobile, dark mode, search, and sidebar." }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;500;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
@@ -24,7 +53,24 @@
         <span class="logo-icon">&#9654;</span>
         <span class="logo-text">Thumb<strong>Preview</strong></span>
       </a>
-      <nav>
+      <nav class="header-nav" aria-label="Main navigation">
+        <select id="langSelect" class="lang-select" aria-label="Select language" title="Language">
+          <option value="en">EN</option>
+          <option value="ko">한국어</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="hi">हिन्दी</option>
+          <option value="id">Bahasa</option>
+          <option value="th">ไทย</option>
+          <option value="vi">Tiếng Việt</option>
+          <option value="tr">Türkçe</option>
+          <option value="ru">Русский</option>
+          <option value="ar">العربية</option>
+        </select>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
           <span class="theme-icon theme-icon--light">&#9788;</span>
           <span class="theme-icon theme-icon--dark">&#9789;</span>
@@ -176,5 +222,6 @@
       });
     })();
   </script>
+  <script src="/js/i18n.js" defer></script>
 </body>
 </html>

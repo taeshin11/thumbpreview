@@ -7,6 +7,26 @@
   <meta name="description" content="Terms of Service for ThumbPreview, the free YouTube thumbnail preview tool. Read our usage terms, disclaimers, and policies.">
   <meta name="keywords" content="thumbpreview terms of service, terms and conditions, thumbnail tool terms, usage policy">
   <link rel="canonical" href="https://public-nine-swart.vercel.app/terms.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Terms of Service — ThumbPreview">
+  <meta property="og:description" content="Terms of Service for ThumbPreview, the free YouTube thumbnail preview tool.">
+  <meta property="og:url" content="https://public-nine-swart.vercel.app/terms.html">
+  <meta property="og:image" content="https://public-nine-swart.vercel.app/assets/og-image.png">
+  <meta property="og:site_name" content="ThumbPreview">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Terms of Service — ThumbPreview">
+  <meta name="twitter:description" content="Terms of Service for ThumbPreview, the free YouTube thumbnail preview tool.">
+  <meta name="twitter:image" content="https://public-nine-swart.vercel.app/assets/og-image.png">
+  <meta name="robots" content="index, follow">
+  <link rel="alternate" hreflang="en" href="https://public-nine-swart.vercel.app/terms.html">
+  <link rel="alternate" hreflang="ko" href="https://public-nine-swart.vercel.app/terms.html">
+  <link rel="alternate" hreflang="ja" href="https://public-nine-swart.vercel.app/terms.html">
+  <link rel="alternate" hreflang="zh" href="https://public-nine-swart.vercel.app/terms.html">
+  <link rel="alternate" hreflang="es" href="https://public-nine-swart.vercel.app/terms.html">
+  <link rel="alternate" hreflang="de" href="https://public-nine-swart.vercel.app/terms.html">
+  <link rel="alternate" hreflang="fr" href="https://public-nine-swart.vercel.app/terms.html">
+  <link rel="alternate" hreflang="pt" href="https://public-nine-swart.vercel.app/terms.html">
+  <link rel="alternate" hreflang="x-default" href="https://public-nine-swart.vercel.app/terms.html">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +40,24 @@
         <span class="logo-icon">&#9654;</span>
         <span class="logo-text">Thumb<strong>Preview</strong></span>
       </a>
-      <nav>
+      <nav class="header-nav" aria-label="Main navigation">
+        <select id="langSelect" class="lang-select" aria-label="Select language" title="Language">
+          <option value="en">EN</option>
+          <option value="ko">한국어</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="hi">हिन्दी</option>
+          <option value="id">Bahasa</option>
+          <option value="th">ไทย</option>
+          <option value="vi">Tiếng Việt</option>
+          <option value="tr">Türkçe</option>
+          <option value="ru">Русский</option>
+          <option value="ar">العربية</option>
+        </select>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
           <span class="theme-icon theme-icon--light">&#9788;</span>
           <span class="theme-icon theme-icon--dark">&#9789;</span>
@@ -123,5 +160,6 @@
       });
     })();
   </script>
+  <script src="/js/i18n.js" defer></script>
 </body>
 </html>
