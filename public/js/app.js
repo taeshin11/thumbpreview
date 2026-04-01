@@ -209,7 +209,7 @@
 
   if (copyLinkBtn) {
     copyLinkBtn.addEventListener('click', function () {
-      navigator.clipboard.writeText('https://public-nine-swart.vercel.app').then(function () {
+      navigator.clipboard.writeText('https://thumbpreview-eight.vercel.app').then(function () {
         copyLinkBtn.textContent = (window.__tp_t ? window.__tp_t('copied') : 'Copied!');
         setTimeout(function () { copyLinkBtn.textContent = (window.__tp_t ? window.__tp_t('copyLink') : 'Copy Link'); }, 2000);
       });
@@ -303,7 +303,7 @@
         ctx.fillStyle = '#9E9790';
         ctx.font = '500 12px DM Sans, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('Made with ThumbPreview — public-nine-swart.vercel.app', canvas.width / 2, canvas.height - 12);
+        ctx.fillText('Made with ThumbPreview — thumbpreview-eight.vercel.app', canvas.width / 2, canvas.height - 12);
 
         // Download
         var link = document.createElement('a');
