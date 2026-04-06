@@ -35,7 +35,8 @@
       "Bash(curl -s -o /dev/null -w \"HTTP_CODE:%{http_code} SIZE:%{size_download}\" \"https://public-nine-swart.vercel.app/js/i18n.js\")",
       "Bash(node -c C:/MakingApps/ThumbPreview/public/js/i18n.js)",
       "Bash(node -e \":*)",
-      "Bash(node -c C:/MakingApps/ThumbPreview/public/js/app.js)"
+      "Bash(node -c C:/MakingApps/ThumbPreview/public/js/app.js)",
+      "Bash(curl -s \"https://public-nine-swart.vercel.app\")"
     ]
   }
 }
